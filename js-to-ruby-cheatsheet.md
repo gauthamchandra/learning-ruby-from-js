@@ -18,6 +18,28 @@ comment
 =end
 ```
 
+##Printing to the Screen/Console
+In JavaScript, to print something to the console, you can use the ```Console``` object via ```console.log``` but in Ruby, it is differentiated to two different functions: ```puts``` and ```print```
+
+The differences are **exactly the same as** Java's ```System.out.println``` and ```System.out.print``` in that:
+
+```
+puts 'Hello'  # Prints to console and adds a newline at the end (Similar to Java's System.out.println())
+print 'Hello' # Prints to console but no newline is added (Similar to Java's System.out.print())
+#
+=begin
+The following yields:
+Hello
+Hello
+=end
+2.times { puts 'Hello' } 
+#
+#The following yields 'HelloHello'
+2.times { print 'Hello' }
+```
+
+
+
 ##Objects/Dictionaries
 
 Objects in JavaScript are called dictionaries in Ruby. 
@@ -45,21 +67,22 @@ puts stuff[b] # prints out "0"
 In JavaScript, it is mandatory to execute function with no arguments with parentheses but in ruby, parentheses aren't required and so most devs don't use them:
 
 ```
-# in ruby
 SomeClass.foo  #This is equivalent to SomeClass.foo() in JS
 ```
 
 ###Functions with one or more parameters
-Unlike JS, in Ruby, the number of variables used 
+Unlike JS, in Ruby, parameters don't need to be enclosed by parentheses. The Ruby intepreter just looks for the parameters to be seperated by commas.
 
-
+```
+puts 'Hello' 'World' 'Goodbye' # Similar to console.log('Hello', 'World', 'Goodbye')
+puts('Hello', 'World')         # Also correct in Ruby but less used as its unneccessary
+```
 
 ###Functions as arguments
 
 In Ruby, functions can be passed blocks via {} which act similar to anonymous functions in JavaScript (see below)
 
 ```
-#in ruby
 books = {}
 books['stuff'] = 'hello' #setting a key and value is the same as in JS
 books.values.each { puts 'Hello' } //equivalent to books.values.each(function(){ console.log('Hello') }); in JS

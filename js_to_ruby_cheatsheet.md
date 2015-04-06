@@ -18,7 +18,9 @@ comment
 =end
 ```
 
-##Printing to the Screen/Console
+##Reading and Writing to the Screen/Console
+
+###Print vs puts
 In JavaScript, to print something to the console, you can use the ```Console``` object via ```console.log``` but in Ruby, it is differentiated to two different functions: ```puts``` and ```print```
 
 The differences are **exactly the same as** Java's ```System.out.println``` and ```System.out.print``` in that:
@@ -36,6 +38,15 @@ Hello
 #
 #The following yields 'HelloHello'
 2.times { print 'Hello' }
+```
+
+###Referencing Variables in Puts/Print
+
+To reference variables already defined, use the ```#{variable_name}```. For example:
+
+```
+name = 'Gautham'
+puts 'Hello #{name}'
 ```
 
 
@@ -88,6 +99,29 @@ books['stuff'] = 'hello' #setting a key and value is the same as in JS
 books.values.each { puts 'Hello' } //equivalent to books.values.each(function(){ console.log('Hello') }); in JS
 ```
 
+###Functions doing changes inplace
+Some JS functions do their changes to an object in place and some don't. Ruby, however, makes this matter very clear.
+
+Executing the function and ending with ! makes the change in-place. For example:
+
+```
+name = "Gautham"
+puts name.upcase  # => "GAUTHAM"
+puts name         # => "Gautham" (the name wasn't changed)
+puts name.upcase! # => "GAUTHAM"
+puts name         # => "GAUTHAM" (the name was changed when ! was specified in prev statement)
+```
+
+
+Note that you cannot use the '!' to try to do an inplace change if the original type and resulting type from the operation are different. 
+
+```
+str = 'Hello'
+str.to_i!      #This will return an error. String and integer are not the same type
+str = str.to_i #The workaround
+```
+
+
 ###Function parameters to anonymous functions
 
 In Ruby, parameters to anonymous functions are enclosed via | or "pipe" characters like so:
@@ -138,9 +172,6 @@ They are defined via ":". Here are some examples:
 books['some-book'] = :hello       # Sets the object's value at that key to the symbol ':hello'
 books['some-other-book'] = :hello # Refers to the SAME object as books['some-book']
 ```
-
-##Equality Comparison
-
 
 
 

@@ -81,7 +81,7 @@ email_with_name = "#{user.name} <#{user.email}>"
 email_with_name = format('%s <%s>', user.name, user.email)
 ```
 
-##Parentheses
+##Parentheses<a name="parentheses"></a>
 
 In Ruby, parentheses are technically optional but there are times when it should be used to make the code more readable.
 

@@ -89,6 +89,10 @@ puts 'Hello' 'World' 'Goodbye' # Similar to console.log('Hello', 'World', 'Goodb
 puts('Hello', 'World')         # Also correct in Ruby but less used as its unneccessary
 ```
 
+####When to use parentheses
+See the [Coding Conventions](coding_conventions.md) page for more details.
+
+
 ###Functions as arguments
 
 In Ruby, functions can be passed blocks via {} which act similar to anonymous functions in JavaScript (see below)
@@ -112,6 +116,13 @@ puts name.upcase! # => "GAUTHAM"
 puts name         # => "GAUTHAM" (the name was changed when ! was specified in prev statement)
 ```
 
+For functions with parameters, the ```!``` comes before the parameters
+
+```
+str = "sea shells by the sea shore"
+str.gsub!(/s/, "th")        # Note how the ! is before the parameters
+print str                   # Returns "thea thhellth by the thea thhore"
+```
 
 Note that you cannot use the '!' to try to do an inplace change if the original type and resulting type from the operation are different. 
 

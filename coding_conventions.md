@@ -56,6 +56,13 @@ Unlike JS where many developers use ```CamelCase``` for their variable naming co
 * For constants, use the ```SCREAMING_SNAKE_CASE``` convention.
 * For Classes and Modules, use the ```CamelCase``` convention.
 
+###Naming functions
+
+For functions that return a boolean value, the name should be suffixed with a ```?```. For example:
+
+```
+str.include? "substring"
+```
 
 ##Strings
 
@@ -74,3 +81,33 @@ email_with_name = "#{user.name} <#{user.email}>"
 email_with_name = format('%s <%s>', user.name, user.email)
 ```
 
+##Parentheses
+
+In Ruby, parentheses are technically optional but there are times when it should be used to make the code more readable.
+
+According to the [unofficial Ruby style guide](https://github.com/bbatsov/ruby-style-guide), you **do NOT** use parentheses when:
+
+* It involves control flow statements (if-then, unless etc.)
+* Its a class, function or uses any language specific "keywords" words like ```puts``` or ```attr_reader```
+
+**You use parentheses for all other method invocations.**
+
+From the aforementioned style guide:
+
+```
+class Person
+  attr_reader :name, :age
+
+  # omitted
+end
+
+temperance = Person.new('Temperance', 30)
+temperance.name
+
+puts temperance.age
+
+x = Math.sin(y)
+array.delete(e)
+
+bowling.score.should == 0
+```

@@ -1,4 +1,6 @@
-#JavaScript <--> Ruby Cheatsheet
+#JavaScript --> Ruby Cheatsheet
+
+This is a simple cheatsheet/short guide of sorts for a JavaScript developer who wants to learn Ruby from scratch.
 
 ##Comments
 

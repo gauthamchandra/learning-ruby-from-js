@@ -51,23 +51,61 @@ name = 'Gautham'
 puts 'Hello #{name}'
 ```
 
+###Getting User Input from console
+In Ruby, to read input from the user, its with the ```gets``` keyword (puts for output, gets for input).
 
-##Objects/Dictionaries
+There is one caveat to the ```gets``` keyword and that it returns the User's input WITH a newline character.
 
-Objects in JavaScript are called dictionaries in Ruby. 
+```
+puts "Hello. What is your name?"
+name = gets       # If you entered 'Jake', then name='Jake\n'
+```
+
+####Removing the newline character from ```gets```
+To remove the newline character added from ```gets```, use the ```chomp``` function.
+
+```
+name = gets.chomp  # With chomp, it strips the '\n' and so name='Jake'
+```
+
+
+##Hashes (i.e JS-y objects)
+
+Objects in JavaScript are called hashes in Ruby. 
 
 ###Traditional/JS-y way to define it:
 
-In JS and Ruby, they can be defined like so:
+In JS and Ruby, an empty hash can be defined like so:
 
 ```
 stuff = {}
 ```
 
+But where JS and Ruby differ is in their notation. JSON uses ```:``` to seperate key value pairs but Ruby uses ```=>``` instead.
+
+**IMPORTANT: The keys HAVE to be defined as strings in Ruby unlike JS which doesn't have to be unless it uses invalid symbols like spaces or "-"**
+
+```
+stuff = {
+	'name' => 'Bilbo Baggins',
+	'survives' => true
+}
+```
+Equivalent JS:
+
+```
+stuff = {
+	name: 'Bilbo Baggins',
+	survives: true
+};
+```
+
 ###via Hash.new:
 ```
+x = Hash.new        #Creating a blank hash with the default value as nil
 stuff = Hash.new(0) #Creating a new object and setting any newly specified key with the default value 0
 stuff[a] = 3; # => 3
+
 puts stuff[a] # prints out "3"
 puts stuff[b] # prints out "0"
 ```
@@ -326,6 +364,17 @@ object.each(function(str) {
 });
 ```
 
+To iterate over hashes (i.e JS objects), you just specify 2 params; one for key and one for value:
+
+```
+person = {
+	'name' => 'Goku',
+	'power_level' => 9000000000
+}
+person.each { |key,val| puts "#{key} => #{val}" } #print out each property name and its value
+```
+
+
 ###Using ```times``` iterator for simple looping
 
 If you want to make a block of code execute a fixed number of times, the best way to do it would be through a "times" loop
@@ -333,3 +382,21 @@ If you want to make a block of code execute a fixed number of times, the best wa
 ```
 3.times { puts "Hello!" } #Prints "Hello!" 3 times.
 ```
+
+
+
+
+#Couple of Gotchas/Potential Hangups
+
+##String Interpolation and Single Quotes
+String interpolation is not possible with single quotes. If single quotes are specified, Ruby will take the input **literally**. 
+
+**You MUST use double quotes for string interpolation to be done**
+
+```
+name = 'Batman'
+puts 'I am #{name}' # => 'I am #{name}'
+puts "I am #{name}" # => 'I am Batman'
+```
+
+

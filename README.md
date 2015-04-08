@@ -9,9 +9,9 @@ This is purely a compilation of helpful notes for devs who are coming in to Ruby
 
 [![forthebadge](http://forthebadge.com/images/badges/certified-snoop-lion.svg)](http://forthebadge.com)
 
-#Contents
-* ##[JavaScript Developer? Here are the basics](js_to_ruby_cheatsheet.md)
-* ##[Some basic coding conventions](coding_conventions.md)
+#Topics
+* [JavaScript Developer? Here are the basics](js_to_ruby_cheatsheet.md)
+* [Some basic coding conventions](coding_conventions.md)
 
 
 *More to come soon!*

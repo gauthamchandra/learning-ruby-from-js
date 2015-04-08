@@ -101,9 +101,12 @@ stuff = {
 ```
 
 ###via Hash.new:
+
+Hash.new takes in an optional parameter for the default value. If set, anytime a non-existent key is accessed or an operation is done on a key that has no value, this default value is returned instead.
+
 ```
 x = Hash.new        #Creating a blank hash with the default value as nil
-stuff = Hash.new(0) #Creating a new object and setting any newly specified key with the default value 0
+stuff = Hash.new(0) #Creating a new object and setting the default value to 0. 
 stuff[a] = 3; # => 3
 
 puts stuff[a] # prints out "3"
@@ -120,7 +123,7 @@ In JavaScript, it is mandatory to execute function with no arguments with parent
 SomeClass.foo  #This is equivalent to SomeClass.foo() in JS
 ```
 
-###Functions with one or more parameters
+###Functions with one or more known parameters
 Unlike JS, in Ruby, parameters don't need to be enclosed by parentheses. The Ruby intepreter just looks for the parameters to be seperated by commas.
 
 ```
@@ -128,8 +131,31 @@ puts 'Hello' 'World' 'Goodbye' # Similar to console.log('Hello', 'World', 'Goodb
 puts('Hello', 'World')         # Also correct in Ruby but less used as its unneccessary
 ```
 
+
 ####When to use parentheses
 See the [Coding Conventions](coding_conventions.md#parentheses) page for more details.
+
+**tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitely use parentheses for everything else.
+
+###Functions with an arbitrary number of arguments
+In Java, you would define an arbitrary number of arguments of the same type via the ```...``` keyword like so:
+
+```
+#in Java
+public void function(int ... numbers) { ... }
+```
+
+In Ruby, the splat arguments keyword ```*``` is used. This tells ruby that *we don't know how many arguments there are. **We just know there is at least one***
+
+For example:
+
+```
+def todd_five(greeting, *bros)
+  bros.each { |bro| puts "#{greeting}, #{bro}!" }
+end
+ 
+todd_five("Innuendo Five!", "J.D", "Turk")
+```
 
 
 ###Functions as arguments
@@ -252,6 +278,14 @@ end
 # => "Hooray it's not 3!"
 ```
 
+You could also use the unless statement inline with other statements (in an almost backwards if statement). See below:
+
+```
+#Doing a type check to see if its an integer. The ? is just a naming convention to indicate it returns a boolean
+puts "That's not an integer bro!" unless some_int.is_a? Integer 
+```
+
+
 ###```for``` loops
 
 unlike JS, Ruby has a different ```for``` syntax where it defines the range:
@@ -364,15 +398,28 @@ object.each(function(str) {
 });
 ```
 
-To iterate over hashes (i.e JS objects), you just specify 2 params; one for key and one for value:
+To iterate over hashes (i.e JS objects), you can specify 1 parameter (where the parameter can be both the key and value) or 2 parameters (one for key and one for value):
 
 ```
 person = {
 	'name' => 'Goku',
 	'power_level' => 9000000000
 }
-person.each { |key,val| puts "#{key} => #{val}" } #print out each property name and its value
+#
+#Using 2 parameter prints:
+# name => Goku
+# power_level => 9000000000
+person.each { |key,val| puts "#{key} => #{val}" } 
+#
+# Using 1 parameter prints:
+# name
+# Goku
+# power_level
+# 9000000000
+person.each { |key_or_val| puts |key_or_val| }
 ```
+
+The reason for this is due to the way the iterator is setup for the each.
 
 
 ###Using ```times``` iterator for simple looping

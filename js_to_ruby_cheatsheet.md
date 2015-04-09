@@ -113,31 +113,111 @@ puts stuff[a] # prints out "3"
 puts stuff[b] # prints out "0"
 ```
 
+##Strings
+
+Strings works pretty much the same way in JS as it does in Ruby with a few nice enhancements. 
+
+###String Interpolation
+Aside from standard string concatenation, Ruby allows something called String interpolation. This allows you to refer to variables from inside a string using the ```#{<variable_name>}``` syntax:
+
+```
+name = 'Batman'
+puts "#{name}" # => Batman
+```
+
+You can even execute functions from inside the ```#{}```
+
+```
+puts "#{name.upcase}" # => BATMAN
+```
+
+###String Interpolation and Single Quotes
+String interpolation is not possible with single quotes. If single quotes are specified, Ruby will take the input **literally**. 
+
+**You MUST use double quotes for string interpolation to be done**
+
+```
+name = 'Batman'
+puts 'I am #{name}' # => 'I am #{name}'
+puts "I am #{name}" # => 'I am Batman'
+```
+
+##Arrays
+
+Arrays work the same as in JS with one or two small tweaks.
+
+In Ruby, there is an alias for the push function using the ```<<``` operator. It can be used like so:
+
+```
+[3,2] << 5    # => [3,2,5]
+[3,2].push(5) # same as above statement and the JS-y way to do it but NOT conventional
+```
+
+
 ##Functions and Parameters
 
-###Functions with no parameters
+###Defining functions
 
-In JavaScript, it is mandatory to execute function with no arguments with parentheses but in ruby, parentheses aren't required and so most devs don't use them:
+To define a function, the ```def``` keyword is used and is wrapped with an ```end``` to finish off the code block.
 
-```
-SomeClass.foo  #This is equivalent to SomeClass.foo() in JS
-```
-
-###Functions with one or more known parameters
-Unlike JS, in Ruby, parameters don't need to be enclosed by parentheses. The Ruby intepreter just looks for the parameters to be seperated by commas.
+For example: 
 
 ```
-puts 'Hello' 'World' 'Goodbye' # Similar to console.log('Hello', 'World', 'Goodbye')
-puts('Hello', 'World')         # Also correct in Ruby but less used as its unneccessary
+#Function that takes in no args
+def foo
+	puts 'Hello World'
+end
+```
+
+or:
+
+```
+#function that takes in 1 argument
+def foo(name)
+	puts "Hello #{name}!"
+end
+```
+
+####Returning from a function
+
+If you want to return something, you can use the ```return``` keyword. **HOWEVER, if the last line of a function is the return statement, then the ```return``` keyword isn't needed. Ruby will automatically return the last variable set or retrieved without the return keyword. See below:
+
+```
+#bad
+def foo
+	name = 'hello'
+	return name #unnecessary return
+end
+#
+#good way to do it
+def foo
+	name = 'hello' #Ruby will auto return this variable value.
+end
+```
+
+Another example:
+
+```
+def times_2(n):
+	n * 2    #Ruby will auto return this value without the  return statement.
+end
+```
+
+A ```return``` IS needed if this is **NOT** the last line of the function
+
+
+```
+def foo(x):
+	return "hello" if x == "friend"
+	return "hater!" if x == "hater"
+	"stranger"
+end
 ```
 
 
-####When to use parentheses
-See the [Coding Conventions](coding_conventions.md#parentheses) page for more details.
 
-**tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitely use parentheses for everything else.
 
-###Functions with an arbitrary number of arguments
+####Functions with an arbitrary number of arguments
 In Java, you would define an arbitrary number of arguments of the same type via the ```...``` keyword like so:
 
 ```
@@ -157,6 +237,28 @@ end
 todd_five("Innuendo Five!", "J.D", "Turk")
 ```
 
+
+###Executing functions with no parameters
+
+In JavaScript, it is mandatory to execute function with no arguments with parentheses but in ruby, parentheses aren't required and so most devs don't use them:
+
+```
+SomeClass.foo  #This is equivalent to SomeClass.foo() in JS
+```
+
+###Executing functions with one or more known parameters
+Unlike JS, in Ruby, parameters don't need to be enclosed by parentheses. The Ruby intepreter just looks for the parameters to be seperated by commas.
+
+```
+puts 'Hello' 'World' 'Goodbye' # Similar to console.log('Hello', 'World', 'Goodbye')
+puts('Hello', 'World')         # Also correct in Ruby but less used as its unneccessary
+```
+
+
+####When to use parentheses
+See the [Coding Conventions](coding_conventions.md#parentheses) page for more details.
+
+**tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitely use parentheses for everything else.
 
 ###Functions as arguments
 
@@ -214,16 +316,50 @@ books.values.each(function(book) {
 });
 ```
 
-##Converting to different types
+##Comparing/Converting/Checking different objects
 
-###To a string
+###Comparing two different objects
+
+**Unlike JS, there is no "strict" type checking and type coercion in Ruby**
+
+The JS === is the same as ==. 
+
+Aside from the usual ```==```, ```>=```, ```<=```, ```!=```, Ruby has another comparison operator called the **Combined Comparison Operator** designated by ```<=>```. 
+
+This returns,
+
+* 0 if the two objects are equal
+* 1 if the 1st object is greater
+* -1 if the 2nd object is greater
+
+In this regard, you can think of the combined comparison operator as a glorified shorthand for the ```compareTo``` function in JS and Java
+
+```
+'Hello' <=> 'Hello' # => 0
+3 <=> 2             # => 1
+3 <=> 9				 # => -1 
+```
+
+
+###Checking Types 
+To check the type of an object, use ```is_a?``` function
+
+```
+greeting = 'Hello'
+greeting.is_a? Integer # Checking if greeting is an Integer. => false
+greeting.is_a? String  # Checking if greeting is a String. => true
+```
+
+###Converting
+
+####To a string
 Converting to a String involves using the `to_s` function
 
 ```
 3.to_s # => "3"
 ```
 
-###To an integer
+####To an integer
 Involves using the `to_i` function
 
 ```
@@ -266,6 +402,28 @@ i += 1  # Right way
 
 ##Looping and control statements
 
+###Conditional assignment
+
+In JS, we sometimes want to only set the value of a variable if its not already defined. To do that in JS, we would do something like this:
+
+```
+some_var = some_var || {}
+```
+
+In Ruby, there is an even cooler and more terse way (Yey for terseness!). Here is how to write the aforementioned statement in Ruby:
+
+```
+some_var ||= {} #This is similar to a += or /= operator
+```
+
+###```if``` keyword
+
+This works just like the JavaScript version but with one small enhancement: it can be used inline with other statements (in a very cool readable way). See below:
+
+```
+puts "Hello Bruce" if name == 'Bruce'
+```
+
 ###```unless``` keyword
 
 This is similar to the if condition except it will execute the statement if the result is **false**
@@ -284,6 +442,51 @@ You could also use the unless statement inline with other statements (in an almo
 #Doing a type check to see if its an integer. The ? is just a naming convention to indicate it returns a boolean
 puts "That's not an integer bro!" unless some_int.is_a? Integer 
 ```
+
+###```switch```/```case``` statements
+What is called Switch statements in JS and Java and other languages is called simply case statements in Ruby.
+
+This in Ruby:
+
+```
+case language
+when "JS"
+	puts "Dat frontend scripting language!"
+when "Java"
+	puts "Aw man. The kingdom of nouns!"
+else
+	puts "Some cool language I don't know!"
+end
+```
+
+or a more terse way to write it using ```when...then```:
+
+```
+case language
+	when "JS" then puts "Dat frontend scripting language!"
+	when "Java" then puts "Aw man. The kingdom of nouns!"
+	else puts "Some cool language I don't know!" 
+end
+```
+
+is equivalent to in JS:
+
+```
+switch(language) {
+	case "JS":
+		puts "Dat frotnend scripting language";
+		break;
+	case "Java":
+		puts "Aw man. The kingdom of nouns!";
+		break;
+	default:
+		"Some cool language I don't know!"
+}
+```
+
+So switch  keyword in JS translates to case in Ruby
+   case    keyword in JS translates to when in Ruby
+   default keyword in JS translates to else in Ruby
 
 
 ###```for``` loops
@@ -431,19 +634,5 @@ If you want to make a block of code execute a fixed number of times, the best wa
 ```
 
 
-
-
-#Couple of Gotchas/Potential Hangups
-
-##String Interpolation and Single Quotes
-String interpolation is not possible with single quotes. If single quotes are specified, Ruby will take the input **literally**. 
-
-**You MUST use double quotes for string interpolation to be done**
-
-```
-name = 'Batman'
-puts 'I am #{name}' # => 'I am #{name}'
-puts "I am #{name}" # => 'I am Batman'
-```
 
 

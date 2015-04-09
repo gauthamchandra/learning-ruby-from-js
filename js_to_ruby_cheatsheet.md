@@ -153,6 +153,60 @@ In Ruby, there is an alias for the push function using the ```<<``` operator. It
 [3,2].push(5) # same as above statement and the JS-y way to do it but NOT conventional
 ```
 
+##Blocks and ```proc```
+
+In Ruby, there is a reusable piece of code called a block. It is designated by curly braces: ```{}```
+
+Many functions such as sort, each and times allow you to specify a code block to execute.
+
+For example, in Ruby, if you wanted to print "Hello" 5 times, you could do:
+
+```
+# The code inside the curly braces is a block that is passed to the function 'times'
+5.times { puts "Hello" }
+```
+
+###Passing in code blocks as parameters to functions
+If you want to pass in a code block as a valid parameter to a function, you need to specify to Ruby that it is a function/code block by using the ```&``` prefix. See below:
+
+**IMPORTANT:** Like the [splat arguments](#splat-arguments), this needs to be defined as a parameter of the function **last**
+
+```
+#Note the '&' before the 'func' argument in the method definition
+def foo(&func)
+	func.call
+end
+foo { puts "Hello World" }
+```
+
+###Isn't a block just an anonymous function?
+Not exactly. Blocks look VERY similar at a first glance but an anonymous function is more like a Ruby [lamda function](#lamda-functions)
+
+###So...what is a ```proc```?
+Ruby is built on an "everything is an object" philosophy and that ironically has a few exceptions, one of which is that **a block is NOT an object**.
+
+So how do we reuse blocks? We give it a name but a name can only be given to an object. This is where ```proc``` comes in. It is a container object that holds blocks.
+
+To declare a ```proc```, you can use ```Proc.new```. 
+
+To reference a proc inside a function, you use the ```&``` prefix with the name of the proc. When the prefix is attached, Ruby essentially unpacks/unwraps the block and passes it to the function.  
+
+See below:
+
+```
+times_2 = Proc.new { |num| num * 2 }  #define the proc
+[1,2,3].map(&times_2)                 #note how the proc is prefixed with the '&'
+									   # => [2,4,6]
+```
+
+###Calling Procs directly with ```call``
+
+To call procs directly, use the ```call``` method like so:
+
+```
+hello = Proc.new { puts 'Hello World' }
+hello.call # => Hello World
+```
 
 ##Functions and Parameters
 
@@ -217,7 +271,7 @@ end
 
 
 
-####Functions with an arbitrary number of arguments
+####Functions with an arbitrary number of arguments using splat (```*```)<a name="splat-arguments"></a>
 In Java, you would define an arbitrary number of arguments of the same type via the ```...``` keyword like so:
 
 ```
@@ -316,6 +370,32 @@ books.values.each(function(book) {
 });
 ```
 
+###```yield``` and executing code blocks inside functions
+In Ruby, you can yield control to run a block of code inside another function. This has a variety of uses.
+
+As a refresher, a block is just a reusable piece of code enclosed by braces ```{}```
+
+Using the ```yield``` you can invoke code blocks and pass it arguments as if they were functions. **Unless the blocks are specified as arguments, they are outside the parentheses. See below:**
+
+```
+def foo(greeting)
+	puts 'Inside the function foo'
+	yield(greeting)
+	puts 'Back inside the function foo'
+end
+foo("Top of the mornin to ya!") { |greeting| puts "#{greeting} John" }
+```
+
+This prints out:
+
+```
+Inside the function foo
+Top of the mornin to ya John
+Back inside the function foo
+```
+
+
+
 ##Comparing/Converting/Checking different objects
 
 ###Comparing two different objects
@@ -370,9 +450,9 @@ Involves using the `to_i` function
 ##Symbols
 **Symbols are a special object that contains names and strings inside the Ruby Interpreter.**
 
-There is no standard JS equivalent to Symbols. The closest Java equivalent to this would probably ```Enums```. This is because symbols are defined as static things which are used once and are immutable. Referencing them again will refer to the same copy in memory. 
+There is no standard JS equivalent to Symbols. The closest Java equivalent to this would probably interned Strings. This is because symbols are defined as static things which are used once and are immutable. Referencing them again will refer to the same copy in memory. 
 
-Just like a Java Enum, they cannot be set to any value like a string or integer. They can only be values set to other objects.
+Symbols can only be values set to other objects.
 
 They are defined via ":". Here are some examples:
 
@@ -384,6 +464,9 @@ They are defined via ":". Here are some examples:
 books['some-book'] = :hello       # Sets the object's value at that key to the symbol ':hello'
 books['some-other-book'] = :hello # Refers to the SAME object as books['some-book']
 ```
+
+**WARNING: *For Ruby versions < 2.2*, SYMBOLS TAKE UP MEMORY AND CANNOT BE GARBAGE COLLECTED. YOU CAN CAUSE DoS PROBLEMS IF YOU AREN'T CAREFUL**
+
 
 ##Decrementing and Incrementing
 

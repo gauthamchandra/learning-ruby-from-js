@@ -214,7 +214,7 @@ times_2 = Proc.new { |num| num * 2 }  #define the proc
 									   # => [2,4,6]
 ```
 
-###Calling Procs directly with ```call``
+###Calling Procs directly with ```call```
 
 To call procs directly, use the ```call``` method like so:
 

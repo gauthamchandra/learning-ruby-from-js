@@ -153,7 +153,7 @@ In Ruby, there is an alias for the push function using the ```<<``` operator. It
 [3,2].push(5) # same as above statement and the JS-y way to do it but NOT conventional
 ```
 
-##Blocks and ```proc```
+##Blocks, ```proc``` and ```lambda```
 
 In Ruby, there is a reusable piece of code called a block. It is designated by curly braces: ```{}```
 
@@ -207,6 +207,103 @@ To call procs directly, use the ```call``` method like so:
 hello = Proc.new { puts 'Hello World' }
 hello.call # => Hello World
 ```
+
+**WARNING:** using ```return``` inside a proc will cause it to not only exit out of the proc but return outside of the calling function. See below:
+
+```
+def foo
+	some_proc.call    #The return in this proc will kick us out of function foo
+	return 'Goodbye'  #This never gets executed :'(
+end
+
+some_proc = Proc.new { return 'Hello' }
+
+foo
+```
+
+So:
+
+```
+'Goodbye' #Expected
+'Hello'   #Actual :(
+```
+
+
+###Converting Symbols to Procs for shorthand blocks
+In Ruby, there is a bit of shorthand notations which will, for most JS developers not familair with Ruby, look like black magic.
+
+Converting symbols to Procs is one such example. See this example below:
+
+```
+["1", "2", "3"].map(&:to_i) # => [1,2,3]
+```
+
+Most devs will probably be like [Lol Wuuuuut?](http://replygif.net/i/311.gif). Everything is fairly normal until we hit the ```&:to_i```
+
+
+What is happening is:
+
+* ```to_i``` is a function and when combined with ```:``` gets turned into a symbol referencing the ```to_i``` function (which just converts the object to an integer)
+* Recall that the ```&``` prefix for a proc usually unwraps/unpacks the block for a function to consume. In this case, since its a symbol and not a block, Ruby calls the ```to_proc``` function to convert it to a block. 
+* This newly formed block is fed into the map function
+
+So....:
+
+```
+["1", "2", "3"].map(&:to_i) # => [1,2,3]
+["1", "2", "3"].map { |arg| arg.to_i } # same as the above statement
+```
+
+**NOTE: This notation and referencing the method via ```&``` works with ```lambda``` (see next section) too.**
+
+###What are lamdas?
+A lambda is a ```proc``` but with a few small additions. It is declared almost the same way as a proc. 
+
+```
+foo = Proc.new { puts "Hello World" }
+bar = lamda { puts "Goodbye Cruel World" } 
+```
+
+####Then aren't lambdas and procs the same?
+
+Nope. Lambdas and procs have 2 major differences:
+
+1. Lambdas check the number of arguments passed to it while procs do not. This means if a lambda has 3 arguments and is passed 2, it throws an error. Procs on the other hand just assign ```nil``` to any missing arguments.
+2. Unlike procs, when a return statement is hit inside a lambda, it only exits out of the lambda and not out of the calling method.
+
+```
+foo = lambda { |x, y| x + y }
+
+def bar
+	foo(5) #Insufficient args so Ruby throws an 'ArgumentError' 
+	return 'Hello'
+end
+
+bar
+```
+
+```
+foo = lambda { |x,y| return x + y } #The return only exits out of lambda, not calling method
+
+def bar
+	foo(5, 6)
+	return 'Hello'
+end
+
+bar # Returns 'Hello' not 11
+```
+
+###Passing Procs/Lambdas as parameters to functions
+
+To pass procs/lambdas as parameters to functions for actions such as filtering, use the ```&``` to refer to the proc/lambda. This essentially unpackages/unwraps the code block from the proc/lambda
+
+```
+stuff = [:hello, :goodbye, 'Hello', 'Goodbye']
+is_symbol = Proc.new { |val| val.is_a? Symbol } #Lets filter out anything that isn't a symbol
+
+stuff.select!(&is_symbol)                       # => [:hello, :goodbye]
+```
+
 
 ##Functions and Parameters
 
@@ -715,6 +812,49 @@ If you want to make a block of code execute a fixed number of times, the best wa
 ```
 3.times { puts "Hello!" } #Prints "Hello!" 3 times.
 ```
+
+##Classes
+
+Unlike JS which needs to use closures to create class-like structures (at least until EcmaScript 6 is finalized and comes out), Ruby has an actual structure designated by the ```class``` attribute. 
+
+Here are the basic syntaxes for a class:
+
+1. ```class``` defines the class (pretty obvious)
+2. ```initialize``` function is the constructor for the class. The name matters. The constructor MUST have this name.
+3. An instance variable must have the ```@``` prefixed to it (Example: _@name_)
+4. To instantiate an instance of a class, unlike JS which uses ```new <Type-name>(...)```, Ruby uses a syntax with this format: ```<Class>.new(...)```
+
+
+Here is a simplistic example:
+
+```
+class Superhero
+	def initialize(pseudonym, name)
+		@pseudonym = pseudonym
+		@name = name
+	end
+	
+	def description
+		puts "I'm #{@pseudonym} but my real name is #{@name}!"
+	end
+end
+
+batman = Superhero.new('Batman', 'Bruce Wayne')
+batman.description # => "I'm Batman but my real name is Bruce Wayne"
+```
+
+#Scope
+
+JavaScript is a wonderful language in the way we can manipulate access to variables via closures. In Ruby, the scoping rules completely differently.
+
+Unlike JS which is all based on a function scope, this has 4 different scopes:
+
+1. **global variables (prefixed with ```$```)** - are available everywhere. _If you don't prefix the variable with ```$``` but it is outside of any function or class, then it is still a global variable.
+2. **local variables** - are available only to the methods they are defined in
+3. **class variables (prefixed with ```@@```)** - are available to all members of the class and between instances of the class. In other words, It belongs to the class itself.
+4. **instance variables (prefixed with ```@```)** - are available to a particular instance of the class
+
+
 
 
 

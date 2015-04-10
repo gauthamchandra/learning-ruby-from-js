@@ -178,7 +178,7 @@ Just like classes, they have a ```CamelCase``` naming convention.
 module Foo
 	SOME_CONSTANT = 9
 end
-``
+```
 
 ##Namespace resolution using ``::``
 

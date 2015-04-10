@@ -12,6 +12,8 @@ Here are the basic syntaxes for a class:
 4. To instantiate an instance of a class, unlike JS which uses ```new <Type-name>(...)```, Ruby uses a syntax with this format: ```<Class>.new(...)```
 5. ```self``` is a term to refer to the actual class itself NOT the instance of the class.
 
+Finally, Class names are written in `CamelCase` not ```snake_case```
+
 
 Here is a simplistic example:
 
@@ -61,6 +63,8 @@ Smith.new.give_monologue_to_neo  # => 'Mr...Anderson. Humanity is the virus. We 
 
 As you can see, the Agent class has two functions and by using the ```child_class < parent_class``` syntax, we were able to have Smith class inherit from the Agent class and call not only the Agent's own functions but the inherited functions as well.
 
+**Ruby only allows single parent inheritence. To get around this, see [here](#mixins-with-include-and-extend)
+
 ###Overriding inherited functions
 
 This is just like all other languages, just name the function the same as in the parent class to override it.
@@ -84,7 +88,7 @@ class Pitbull < Dog
 end
 ```
 
-##Getters and Setter functions
+###Getters and Setter functions
 Getter and setter functions can be created via standard function definitions but this is suboptimal. We don't want to create getters and setters manually for a lot of the instance variables.
 
 Ruby allows a nice shortcut for this using the ```attr_reader```, ```attr_writer``` and ```attr_accessor``` classes! They take in the instance variable name structured as a symbol (see example below).
@@ -126,7 +130,7 @@ If you are confused about the ```name=(value)``` then please see [the naming con
 
 
 
-##Scope
+#Scope
 
 JavaScript is a wonderful language in the way we can manipulate access to variables via closures. In Ruby, the scoping rules completely different.
 
@@ -164,7 +168,122 @@ puts Foo.get_instance_count # => 2
 ```
 
 
+#Module
+
+A module in Ruby is a data structure for holding methods and constants. It can be thought of as a ```public final static``` Java class. Variables in a module don't make much sense as they are subject to change and almost everything in a module is either a constant or an unchanging function.
+
+Just like classes, they have a ```CamelCase``` naming convention.
+
+```
+module Foo
+	SOME_CONSTANT = 9
+end
+``
+
+##Namespace resolution using ``::``
+
+If there are multiple functions with the same name in different modules, to make sure Ruby knows to pick the right function, we use ```<module-name>::<function/constant-name>``` format to be specific. 
+
+For example. if you define a module with the constant PI
+
+```
+module Foo
+	PI = 3.1415
+end
+```
+
+Then if you want to refer to the Math module's PI and not Foo's, you can specify it like so:
+
+```
+Math::PI  #=> 3.141592653589793
+```
+
+You can also use the standard dot notation as well **IF it is a function**
+
+```
+Date::Today 
+Date.Today #same as Date::Today
+```
 
 
+##Importing a module with ```require``` and ```include```
+
+There are two ways to import a module:
+
+1. ```require 'module'``` - This imports the module but you still have to refer to it by namespace. For example, if you import Math library, to use the cos() function, you still need to say ```Math.cos```
+2. ```include Module``` - This imports the module AND acts as if the module contents are now part of the class/module. This is very important as it allows you to use the module's constants and methods without the prefix. As a result, if you import the Math library, you can just say ```cos(34)``` instead of ```Math.cos(34)```. **For this reason, the include must be inside the class or module declaration.**
 
 
+Importing a module in Ruby uses the ```require``` keyword like so:
+
+```
+require 'date' #import the date module. Note how the name is surrounded by quotes.
+Date.today # date.today
+```
+
+Unlike with ```require```, importing a module with ```include``` means the module must **NOT** be wrapped as a string. It also must be imported from within a module or class.
+
+```
+class Foo
+	include Math
+	def cosine(radians)
+		cos(radians)        #Look Ma! No Namespace prefix for the cos()!
+	end
+end
+```
+
+##Mixins<a name="mixins-with-include-and-extend"></a>
+
+###Mixin with ```include```<a name="mixins-with-include"></a>
+When you use ```include```, the module's methods act as if they are now part of the **instance of the** class/module and this has far reaching effects.
+
+See below:
+
+```
+module Gun
+	def shoot(name)
+		puts "Shot #{name}"
+	end
+end
+
+class Man
+	include Gun
+end
+
+joe = Man.new
+joe.shoot("Pete")  # => 'Shot Pete'
+```
+
+As you can see, the Man class was essentially augmented with the module's functions. This is called a **mixin**.
+
+Let's continue:
+
+```
+class BadMan < Man; end
+
+will = BadMan.new
+will.shoot("Franz Ferdinand") # => 'Shot Franz Ferdinand'
+```
+
+This is how single inheritence can be side stepped. Classes can be mixed in and inherited and the child classes would then inherit the constants and methods of the module even if they aren't explicitely inclduing it themselves.
+
+###Mixin with ```extend```<a name="mixins-with-extend"></a>
+The mixin with ```extend``` works exactly the same way as the [mixin with include](#mixins-with-include) but it works on a **Class level**
+
+See example below (thanks code academy for the example):
+
+```
+module ThePresent
+  def now
+    puts "It's #{Time.new.hour > 12 ? Time.new.hour - 12 : Time.new.hour}:#{Time.new.min} #{Time.new.hour > 12 ? 'PM' : 'AM'} (GMT)."
+  end
+end
+
+class TheHereAnd
+  extend ThePresent
+end
+
+TheHereAnd.now
+```
+
+Note how the class itself can call ```now``` and not just instances of the class.

@@ -111,3 +111,10 @@ array.delete(e)
 
 bowling.score.should == 0
 ```
+
+##Chaining functions
+
+Functions can easily be chained as long as the reference to the class using ```self``` is returned from the functions
+
+[See here:](http://tjackiw.tumblr.com/post/23155838377/interview-challenge-ruby-method-chaining)
+

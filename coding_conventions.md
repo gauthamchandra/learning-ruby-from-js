@@ -58,11 +58,33 @@ Unlike JS where many developers use ```CamelCase``` for their variable naming co
 
 ###Naming functions
 
+####Functions that return booleans
 For functions that return a boolean value, the name should be suffixed with a ```?```. For example:
 
 ```
 str.include? "substring"
 ```
+
+####Functions that are setters<a name="setter-naming-convention"></a>
+In other languages like Java or C#, if we have an attribute ```name```, and we have to set the value of that attribute, then the setter function would be named ```setName```
+
+Ruby allows ```=``` in method names so the convention is to suffix the ```=``` with the attribute. So in this case, it would be:
+
+```
+def name=(value)
+	@name = value
+end
+```
+
+Terse-tastic!
+
+For future reference, getter and setter functions are called _reader_ and _writer_ functions 
+respectively in Ruby.
+
+#####USE ```attr_accessor```/```attr_writer``` INSTEAD OF MANUALLY HAVING A SETTER
+
+Most of the time, if this is a common instance variable, you do not need to set up your
+
 
 ##Strings
 

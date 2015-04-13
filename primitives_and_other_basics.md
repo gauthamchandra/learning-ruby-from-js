@@ -101,9 +101,17 @@ In JS and Ruby, an empty hash can be defined like so:
 stuff = {}
 ```
 
-But where JS and Ruby differ is in their notation. JSON uses ```:``` to seperate key value pairs but Ruby uses ```=>``` instead.
+JS and Ruby both can use ```:``` to seperate key value pairs in hashes like so:
 
-**IMPORTANT: The keys HAVE to be defined as strings in Ruby unlike JS which doesn't have to be unless it uses invalid symbols like spaces or "-"**
+```
+#the same in both JS and Ruby
+a = { status: 'zombie', name:'Katie', id: 5 }
+```.
+
+####Alternate notation for key value seperators using ```=>```
+
+Instead of using ```:``` to seperate key value pairs, In Ruby, one can also use ```=>``` instead.
+
 
 ```
 stuff = {

@@ -114,7 +114,7 @@ a = { status: 'zombie', name:'Katie', id: 5 }
 a[:status] #Same as a['status']
 ``` 
 
-####Alternate notation for key value seperators using ```=>```
+####Alternate notation for key value seperators using the hashrocket: ```=>```
 
 Instead of using ```:``` to seperate key value pairs, In Ruby, one can also use ```=>``` instead.
 
@@ -132,6 +132,17 @@ stuff = {
 	name: 'Bilbo Baggins',
 	survives: true
 };
+```
+
+####Ommitting the ```{}```
+
+When passing a hash to a function, if the hash is the last parameter, the ```{}``` can be ommitted. 
+
+So if there is a method ```foo``` that takes in 1 hash as a parameter:
+
+```
+foo({ 'status' => 'zombie' }) # This...
+foo('status' => 'zombie')     # is the same as this
 ```
 
 ###via Hash.new:

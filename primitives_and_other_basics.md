@@ -106,7 +106,13 @@ JS and Ruby both can use ```:``` to seperate key value pairs in hashes like so:
 ```
 #the same in both JS and Ruby
 a = { status: 'zombie', name:'Katie', id: 5 }
-```.
+```
+
+**Every key in a hash is a [symbol](#symbols) and can be accessed as such:**
+
+```
+a[:status] #Same as a['status']
+``` 
 
 ####Alternate notation for key value seperators using ```=>```
 
@@ -249,7 +255,7 @@ Involves using the ```to_proc``` function
 Procs are covered [here](functions.md#blocks-procs-and-lambdas).
 
 
-##Symbols
+##Symbols<a name="symbols"></a>
 **Symbols are a special object that contains names and strings inside the Ruby Interpreter.**
 
 There is no standard JS equivalent to Symbols. The closest Java equivalent to this would probably interned Strings. This is because symbols are defined as static things which are used once and are immutable. Referencing them again will refer to the same copy in memory. 

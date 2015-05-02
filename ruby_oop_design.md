@@ -76,14 +76,14 @@ If you have overriden a parent class function but now still need access to the p
 ```
 class Dog
 	def speak
-		return "Woof"
+		puts "I'm a dog."
 	end
 end
 
 class Pitbull < Dog
 	def speak
-		puts 'Instead of woof...'
 		super                    #If there were any arguments, it would be super(...)
+		puts 'But I'm also a pitbull...'
 	end
 end
 ```

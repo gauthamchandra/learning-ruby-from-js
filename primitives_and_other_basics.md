@@ -106,7 +106,7 @@ JS and Ruby both can use ```:``` to seperate key value pairs in hashes like so:
 ```
 #the same in both JS and Ruby
 a = { status: 'zombie', name:'Katie', id: 5 }
-```.
+```
 
 ####Alternate notation for key value seperators using ```=>```
 

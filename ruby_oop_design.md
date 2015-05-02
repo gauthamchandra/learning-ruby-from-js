@@ -17,7 +17,7 @@ Finally, Class names are written in `CamelCase` not ```snake_case```
 
 Here is a simplistic example:
 
-```
+```ruby
 class Superhero
 	def initialize(pseudonym, name)
 		@pseudonym = pseudonym
@@ -39,7 +39,7 @@ Unlike JS which uses a nonstandard prototypal inheritence, Ruby has a more class
 
 Here is a basic example:
 
-```
+```ruby
 class Agent
 	def hijack_person
 		puts 'I got them. Intercepting them now.'
@@ -73,7 +73,7 @@ This is just like all other languages, just name the function the same as in the
 
 If you have overriden a parent class function but now still need access to the parent class function, you can use the ```super``` keyword like you would in Java.
 
-```
+```ruby
 class Dog
 	def speak
 		return "Woof"
@@ -95,7 +95,7 @@ Ruby allows a nice shortcut for this using the ```attr_reader```, ```attr_writer
 
 Instead of writing your getter and setter function like so:
 
-```
+```ruby
 class Foo
 	@name 			#just creating the instance var. currently 'nil'
 	
@@ -114,7 +114,7 @@ a.name = 'Billy'
 
 you can just write this:
 
-```
+```ruby
 class Foo
 	attr_accessor :name       #The name of the attribute written as a symbol. 
 end
@@ -147,7 +147,7 @@ Unlike JS which is all based on a function scope, this has 4 different scopes:
 
 A good example of using class variables is for counting the instances of a class
 
-```
+```ruby
 class Foo
 	@@foo_instance_count = 0
 	
@@ -174,7 +174,7 @@ A module in Ruby is a data structure for holding methods and constants. It can b
 
 Just like classes, they have a ```CamelCase``` naming convention.
 
-```
+```ruby
 module Foo
 	SOME_CONSTANT = 9
 end
@@ -186,7 +186,7 @@ If there are multiple functions with the same name in different modules, to make
 
 For example. if you define a module with the constant PI
 
-```
+```ruby
 module Foo
 	PI = 3.1415
 end
@@ -194,13 +194,13 @@ end
 
 Then if you want to refer to the Math module's PI and not Foo's, you can specify it like so:
 
-```
+```ruby
 Math::PI  #=> 3.141592653589793
 ```
 
 You can also use the standard dot notation as well **IF it is a function**
 
-```
+```ruby
 Date::Today 
 Date.Today #same as Date::Today
 ```
@@ -216,14 +216,14 @@ There are two ways to import a module:
 
 Importing a module in Ruby uses the ```require``` keyword like so:
 
-```
+```ruby
 require 'date' #import the date module. Note how the name is surrounded by quotes.
 Date.today # date.today
 ```
 
 Unlike with ```require```, importing a module with ```include``` means the module must **NOT** be wrapped as a string. It also must be imported from within a module or class.
 
-```
+```ruby
 class Foo
 	include Math
 	def cosine(radians)
@@ -239,7 +239,7 @@ When you use ```include```, the module's methods act as if they are now part of 
 
 See below:
 
-```
+```ruby
 module Gun
 	def shoot(name)
 		puts "Shot #{name}"
@@ -258,7 +258,7 @@ As you can see, the Man class was essentially augmented with the module's functi
 
 Let's continue:
 
-```
+```ruby
 class BadMan < Man; end
 
 will = BadMan.new
@@ -272,7 +272,7 @@ The mixin with ```extend``` works exactly the same way as the [mixin with includ
 
 See example below (thanks code academy for the example):
 
-```
+```ruby
 module ThePresent
   def now
     puts "It's #{Time.new.hour > 12 ? Time.new.hour - 12 : Time.new.hour}:#{Time.new.min} #{Time.new.hour > 12 ? 'PM' : 'AM'} (GMT)."

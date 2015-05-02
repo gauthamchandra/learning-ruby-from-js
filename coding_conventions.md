@@ -20,20 +20,20 @@ The examples below make it more clear:
 
 This:
 
-```
+```ruby
 task :rake => pre_rake_task do
   something
 end
 ```
 Really means:
 
-```
+```ruby
 task(:rake => pre_rake_task){ something }
 ```
 
 And this with curly braces:
 
-```
+```ruby
 task :rake => pre_rake_task {
   something
 }
@@ -41,7 +41,7 @@ task :rake => pre_rake_task {
 
 really means:
 
-```
+```ruby
 task :rake => (pre_rake_task { something })
 ```
 
@@ -61,7 +61,7 @@ Unlike JS where many developers use ```CamelCase``` for their variable naming co
 ####Functions that return booleans
 For functions that return a boolean value, the name should be suffixed with a ```?```. For example:
 
-```
+```ruby
 str.include? "substring"
 ```
 
@@ -70,7 +70,7 @@ In other languages like Java or C#, if we have an attribute ```name```, and we h
 
 Ruby allows ```=``` in method names so the convention is to suffix the ```=``` with the attribute. So in this case, it would be:
 
-```
+```ruby
 def name=(value)
 	@name = value
 end
@@ -90,15 +90,15 @@ Most of the time, if this is a common instance variable, you do not need to set 
 
 ###String Concatenation vs String Formatting and Interpolation
 
-```
+```ruby
 #bad
 email_with_name = user.name + ' <' + user.email + '> '
 ```
-```
+```ruby
 #good (with string interpolation)
 email_with_name = "#{user.name} <#{user.email}>"
 ```
-```
+```ruby
 #good (with string formatting)
 email_with_name = format('%s <%s>', user.name, user.email)
 ```
@@ -116,7 +116,7 @@ According to the [unofficial Ruby style guide](https://github.com/bbatsov/ruby-s
 
 From the aforementioned style guide:
 
-```
+```ruby
 class Person
   attr_reader :name, :age
 

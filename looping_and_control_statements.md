@@ -4,13 +4,13 @@
 
 In JS, we sometimes want to only set the value of a variable if its not already defined. To do that in JS, we would do something like this:
 
-```
+```ruby
 some_var = some_var || {}
 ```
 
 In Ruby, there is an even cooler and more terse way (Yey for terseness!). Here is how to write the aforementioned statement in Ruby:
 
-```
+```ruby
 some_var ||= {} #This is similar to a += or /= operator
 ```
 
@@ -18,7 +18,7 @@ some_var ||= {} #This is similar to a += or /= operator
 
 This works just like the JavaScript version but with one small enhancement: it can be used inline with other statements (in a very cool readable way). See below:
 
-```
+```ruby
 puts "Hello Bruce" if name == 'Bruce'
 ```
 
@@ -26,7 +26,7 @@ puts "Hello Bruce" if name == 'Bruce'
 
 This is similar to the if condition except it will execute the statement if the result is **false**
 
-```
+```ruby
 i = 0
 unless i == 3
 	print "Hooray it's not 3!" #will execute if the i == 3 is false which it is.
@@ -36,7 +36,7 @@ end
 
 You could also use the unless statement inline with other statements (in an almost backwards if statement). See below:
 
-```
+```ruby
 #Doing a type check to see if its an integer. The ? is just a naming convention to indicate it returns a boolean
 puts "That's not an integer bro!" unless some_int.is_a? Integer 
 ```
@@ -46,7 +46,7 @@ What is called Switch statements in JS and Java and other languages is called si
 
 This in Ruby:
 
-```
+```ruby
 case language
 when "JS"
 	puts "Dat frontend scripting language!"
@@ -59,7 +59,7 @@ end
 
 or a more terse way to write it using ```when...then```:
 
-```
+```ruby
 case language
 	when "JS" then puts "Dat frontend scripting language!"
 	when "Java" then puts "Aw man. The kingdom of nouns!"
@@ -69,7 +69,7 @@ end
 
 is equivalent to in JS:
 
-```
+```ruby
 switch(language) {
 	case "JS":
 		puts "Dat frotnend scripting language";
@@ -98,7 +98,7 @@ There are two forms for this:
 See example below:
 
 
-```
+```ruby
 for i in 0..10 # same as "for(var i = 0; i <= 10; i++)" in JS. NOTE THE TWO DOTS FOR 10 inclusive
 	#some code
 end
@@ -115,7 +115,7 @@ In Ruby, there is another way to loop through code called the ```loop``` stateme
 
 For example:
 
-```
+```ruby
 #Ruby way to do it
 i = 0
 loop do
@@ -127,7 +127,7 @@ end
 
 This is equivalent to this do..while in JS:
 
-```
+```ruby
 var i = 0;
 do {
 	i += 1;
@@ -139,7 +139,7 @@ do {
 
 Just like how the ```unless``` keyword is the opposite of the ```if``` statement, the ```while``` also has its opposite: ```until```. It is used in a similar way to ```unless```.
 
-```
+```ruby
 #The following code loops until j = 0 and then breaks out of the loop.
 j = 3
 until j == 0 do
@@ -155,7 +155,7 @@ You can use the 'next' keyword to skip the loop if a condition is met. It is equ
 
 For example:
 
-```
+```ruby
 for i in 1..5
 	next if i % 2 == 0 #skip if its an even number
 	puts i
@@ -164,7 +164,7 @@ end
 
 Equivalent to JS's continue used with an if statement:
 
-```
+```ruby
 for (var i = 0; i <= 5; i++) {
 	if (i % 2 == 0) {
 		continue;
@@ -181,7 +181,7 @@ You specify an object to loop through and then specify a code block to run for e
 
 For example, the following in Ruby:
 
-```
+```ruby
 object = ['hello', 'goodbye']
 object.each { |str| puts str }
 
@@ -192,7 +192,7 @@ end
 ```
 is equivalent to in JS:
 
-```
+```javascript
 var object = ['hello', 'goodbye'];
 object.each(function(str) {
 	console.log(str);
@@ -201,7 +201,7 @@ object.each(function(str) {
 
 To iterate over hashes (i.e JS objects), you can specify 1 parameter (where the parameter can be both the key and value) or 2 parameters (one for key and one for value):
 
-```
+```ruby
 person = {
 	'name' => 'Goku',
 	'power_level' => 9000000000
@@ -227,7 +227,7 @@ The reason for this is due to the way the iterator is setup for the each.
 
 If you want to make a block of code execute a fixed number of times, the best way to do it would be through a "times" loop
 
-```
+```ruby
 3.times { puts "Hello!" } #Prints "Hello!" 3 times.
 ```
 

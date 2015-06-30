@@ -88,7 +88,11 @@ Converting symbols to Procs is one such example. See this example below:
 ["1", "2", "3"].map(&:to_i) # => [1,2,3]
 ```
 
-Most devs will probably be like [Lol Wuuuuut?](http://replygif.net/i/311.gif). Everything is fairly normal until we hit the ```&:to_i```
+Most devs will probably be like...
+
+![](http://replygif.net/i/311.gif)
+
+Everything is fairly normal until we hit the ```&:to_i```
 
 
 What is happening is:
@@ -181,7 +185,7 @@ end
 
 ####Returning from a function
 
-If you want to return something, you can use the ```return``` keyword. **HOWEVER, if the last line of a function is the return statement, then the ```return``` keyword isn't needed. Ruby will automatically return the last variable set or retrieved without the return keyword. See below:
+If you want to return something, you can use the ```return``` keyword. **HOWEVER**, if the last line of a function is the return statement, then the ```return``` keyword isn't needed. Ruby will automatically return the last variable set or retrieved without the return keyword. See below:
 
 ```ruby
 #bad

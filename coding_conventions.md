@@ -138,7 +138,7 @@ bowling.score.should == 0
 
 Omit the ```{}``` when being called as the last parameter of a function:
 
-```
+```ruby
 foo({ :key => 'value' })     # bad. Its unnecessary.
 foo(:key => 'value')         # good.
 bar(32, :key => 'value')     # good

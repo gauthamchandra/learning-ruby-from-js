@@ -134,6 +134,19 @@ array.delete(e)
 bowling.score.should == 0
 ```
 
+##Hashes
+
+Omit the ```{}``` when being called as the last parameter of a function:
+
+```
+foo({ :key => 'value' })     # bad. Its unnecessary.
+foo(:key => 'value')         # good.
+bar(32, :key => 'value')     # good
+baz({ :key => 'value' }, 32) # good. The hash is not the last parameter so {} is needed
+
+```
+
+
 ##Chaining functions
 
 Functions can easily be chained as long as the reference to the class using ```self``` is returned from the functions

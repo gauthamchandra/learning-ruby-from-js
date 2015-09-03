@@ -1,6 +1,6 @@
-##Ruby OOP Design
+#Ruby OOP Design
 
-##Classes
+#Classes
 
 Unlike JS which needs to use closures to create class-like structures (at least until EcmaScript 6 is finalized and comes out), Ruby has an actual structure designated by the ```class``` attribute. 
 
@@ -128,7 +128,56 @@ a.name # => 'Billy'
 
 If you are confused about the ```name=(value)``` then please see [the naming convention entry in the Coding Conventions page](coding_conventions.md#setter-naming-convention)
 
+###Class Definitions (Gotchas when coming from other languages)
 
+In Ruby, code that defines a class is no different from any other code. This means allows you to place code almost anywhere. For example:
+
+```ruby
+# this is actually valid
+# yields: 
+#  Hello
+#  Hello
+2.times do
+  class Foo
+    puts 'Hello'
+  end
+end
+```
+
+#####Classes can be defined multiple times
+
+In Ruby, the first time the interpreter encounters a class definition, it creates the class with the specific members that have been specified. If it encounters a definition for the same class again, it actually *extends the existing definition*
+
+```ruby
+# Defines class Foo
+class Foo
+  def bar
+    2
+  end
+end
+
+# extends already defined Foo
+class Foo
+  def baz
+    3
+  end
+end
+
+# The above 2 definitions is equivalent to this
+class Foo
+  def bar
+    2
+  end
+  
+  def baz
+    3
+  end
+end
+```
+
+This metaprogramming feature is a pretty powerful way to extend classes at runtime and this is how the Rails's `ActiveRecord` classes work (see the rails doc for details).
+
+The JS equivalent of this would be overriding the `prototype` of an existing type.
 
 #Scope
 

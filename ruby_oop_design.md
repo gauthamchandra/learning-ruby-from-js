@@ -316,9 +316,9 @@ Why is `@a` not available for `Foo.new`? Its because` @a` is an instance variabl
 
 #Module
 
-A module in Ruby is a data structure for holding methods and constants. It can be thought of as a ```public final static``` Java class. Variables in a module don't make much sense as they are subject to change and almost everything in a module is either a constant or an unchanging function.
+A module in Ruby is a data structure for holding methods and constants.
 
-Just like classes, they have a ```CamelCase``` naming convention.
+Just like with classes, they have a ```CamelCase``` naming convention.
 
 ```ruby
 module Foo

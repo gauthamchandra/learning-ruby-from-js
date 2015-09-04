@@ -130,7 +130,7 @@ If you are confused about the ```name=(value)``` then please see [the naming con
 
 ###Class Definitions (Gotchas when coming from other languages)
 
-In Ruby, code that defines a class is no different from any other code. This means allows you to place code almost anywhere. For example:
+In Ruby, code that defines a class is no different from any other code. This means you can place the class definition code almost anywhere. For example:
 
 ```ruby
 # this is actually valid
@@ -177,7 +177,31 @@ end
 
 This metaprogramming feature is a pretty powerful way to extend classes at runtime and this is how the Rails's `ActiveRecord` classes work (see the rails doc for details).
 
-The JS equivalent of this would be overriding the `prototype` of an existing type.
+The JS equivalent of this would be overriding the `prototype` of an existing type. 
+
+######Careful in overriding existing functions!
+
+This kind of extending classes on existing types inherent to the language is known by JS devs as `monkeypatching` and is dangerous to do on existing types. For example:
+
+```
+class Foo
+  def bar
+    3
+  end
+end
+
+# somewhere else in the code
+# The following actually overwrites existing bar definition
+class Foo
+  def bar
+    5
+  end
+end
+
+Foo.new.bar # => 5
+```
+
+This example might seem silly but it is very important to note. In JavaScript, developers are warned not to overwrite existing types like `String.prototype` or `Array.prototype` that might unintentionally affect other functionality or libraries used in the app. Ruby code has the same implications and so the same care must be taken.
 
 #Scope
 

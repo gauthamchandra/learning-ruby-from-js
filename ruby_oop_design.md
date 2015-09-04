@@ -1,5 +1,9 @@
 #Ruby OOP Design
 
+#Everything is an object
+
+One of the fundamental tenets of Ruby is that *EVERYTHING* is an object. You will see this further in the classes section.
+
 #Classes
 
 Unlike JS which needs to use closures to create class-like structures (at least until EcmaScript 6 is finalized and comes out), Ruby has an actual structure designated by the ```class``` attribute. 
@@ -203,7 +207,7 @@ Foo.new.bar # => 5
 
 This example might seem silly but it is very important to note. In JavaScript, developers are warned not to overwrite existing types like `String.prototype` or `Array.prototype` that might unintentionally affect other functionality or libraries used in the app. Ruby code has the same implications and so the same care must be taken.
 
-#Scope
+###Scope
 
 JavaScript is a wonderful language in the way we can manipulate access to variables via closures. In Ruby, the scoping rules completely different.
 
@@ -239,6 +243,75 @@ puts Foo.get_instance_count #Note we are accessing via the class itself and not 
 b = Foo.new
 puts Foo.get_instance_count # => 2
 ```
+
+###Everything is an object (even a class)
+
+If you define a class Foo:
+
+```ruby
+class Foo; end
+```
+
+Then the class `Foo` inherits from `Class`.
+
+But what exactly is a class? In Ruby, it's really just an object! This object sets up all of the methods that you associate with classes including `new`, `superclass` and `allocate`. 
+
+But wait...if `Class` is an object, then does it inherit from something? Yes. Here is the inheritance chain:
+
+```
+BasicObject <--- Object <-- Module <-- Class
+```
+
+So technically... all classes are modules and `BasicObject` is the root of the Ruby class heirarchy.
+
+###Class Reflection and Metaprogramming
+
+Unlike other languages like C where much of the metadata on an object or class is stripped away, Ruby keeps almost all of it. 
+
+Some useful information that can be available are:
+
+#####Class and Superclass via `.class` and `.superclass`
+
+```ruby
+class Foo
+end
+
+x = Foo.new
+x.class      # => Foo
+x.superclass # => Class
+```
+
+#####Getting a list of methods via `.methods`, `.public_methods`, `.protected_methods`, `.private_methods`
+
+```ruby
+class Foo
+  def bar
+  end
+end
+
+x = Foo.new
+x.methods(false) # false tells the function to only return non-inherited methods.
+                 # => [:bar]
+
+#To get a subset by searching through the methods, calling grep() is useful
+x.methods.grep(/ba/) # => [:bar]
+```
+
+#####Getting a list of instance variables via `.instance_variables`
+
+```ruby
+class Foo
+  @a = 3
+  def initialize
+    @b = 5
+  end
+end
+
+Foo.instance_variables     # => [:@a]
+Foo.new.instance_variables # => [:@b]
+```
+
+Why is `@a` not available for `Foo.new`? Its because` @a` is an instance variable of Foo (since class Foo is technically an object). When `Foo.new` is executed, the `initialize` function is called, creating a new instance variable `@b`.
 
 
 #Module

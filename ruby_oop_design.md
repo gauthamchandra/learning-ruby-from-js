@@ -281,6 +281,8 @@ x.class      # => Foo
 x.superclass # => Class
 ```
 
+Every object has a `class` property that is essentially a reference to the class that created it. In the aforementioned example, `x.class == Foo`
+
 #####Getting a list of methods via `.methods`, `.public_methods`, `.protected_methods`, `.private_methods`
 
 ```ruby

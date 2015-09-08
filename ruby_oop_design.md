@@ -266,7 +266,7 @@ So technically... all classes are modules and `BasicObject` is the root of the R
 
 ###Class Reflection and Metaprogramming
 
-Unlike other languages like C where much of the metadata on an object or class is stripped away, Ruby keeps almost all of it. 
+Unlike other languages like C where much of the metadata on an object or class is stripped away during runtime, Ruby keeps almost all of it. 
 
 Some useful information that can be available are:
 
@@ -407,8 +407,8 @@ Let's continue:
 ```ruby
 class BadMan < Man; end
 
-will = BadMan.new
-will.shoot("Franz Ferdinand") # => 'Shot Franz Ferdinand'
+gavrillo = BadMan.new
+gavrillo.shoot("Franz Ferdinand") # => 'Shot Franz Ferdinand'
 ```
 
 This is how single inheritence can be side stepped. Classes can be mixed in and inherited and the child classes would then inherit the constants and methods of the module even if they aren't explicitely inclduing it themselves.
@@ -433,3 +433,58 @@ TheHereAnd.now
 ```
 
 Note how the class itself can call ```now``` and not just instances of the class.
+
+#Constants
+
+In Ruby, any reference that begins with an uppercase letter whether its a variable, a class names and module names is a constant.
+
+Unlike other languages, constants can have their values set after they have already been initialized. 
+
+A ruby constant is different from a regular variable in only 1 way: *Scope*.
+
+See the following:
+
+```ruby
+SomeConstant = 'HELLO'   # One constant
+module Foo
+  SomeConstant = 'hello' # another different constant due to a different scope.
+  class Bar
+    SomeConstant = 'bye' # another different constant
+  end
+end
+```
+
+To refer to a constant in one particular scope, the `::` is used. From the previous code example:
+
+```ruby
+SomeConstant           # => HELLO
+::SomeConstant         # The "::" prefix can be used to refer to the root scope.
+                       # => HELLO
+Foo::SomeConstant      # => hello
+Foo::Bar::SomeConstant # => bye
+```
+
+###Accessing constants and nesting during runtime
+
+If constants of a specific module need to be accessed, then the `constants` keyword is used:
+
+```ruby
+Module Foo
+  SomeConstant = 'hello'
+end
+
+Bar.constants # => [:SomeConstant]
+```
+
+To find the path of a specific module, the `Module.nesting` can be used:
+
+```ruby
+module Foo
+  class Bar
+    module Baz
+      Module.nesting # => [Foo::Bar::Baz, Foo::Bar, Foo]
+    end
+  end
+end
+```
+

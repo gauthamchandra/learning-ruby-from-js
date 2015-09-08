@@ -436,9 +436,9 @@ Note how the class itself can call ```now``` and not just instances of the class
 
 #Constants
 
-In Ruby, any reference that begins with an uppercase letter whether its a variable, a class names and module names is a constant.
+In Ruby, any reference that begins with an uppercase letter whether its a variable, a class name or module name is a constant.
 
-Unlike other languages, constants can have their values set after they have already been initialized. 
+Unlike other languages, in Ruby, constants can have their values set after they have already been initialized. 
 
 A ruby constant is different from a regular variable in only 1 way: *Scope*.
 

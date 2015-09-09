@@ -118,6 +118,7 @@ a[:status] #Same as a['status']
 
 Instead of using ```:``` to seperate key value pairs, In Ruby, one can also use ```=>``` instead.
 
+**NOTE:** notice that the property names are in quotes. Ruby requires that they either be in quotes or be a [symbol](#symbols). Otherwise, Ruby assumes it is a variable or a function and would return an error.
 
 ```ruby
 stuff = {
@@ -157,6 +158,31 @@ stuff[a] = 3; # => 3
 puts stuff[a] # prints out "3"
 puts stuff[b] # prints out "0"
 ```
+
+####Dot notation and Ruby
+
+Unlike JavaScript where objects (i.e Ruby hashes) can be accessed by dot notation, Ruby forces hash properties to be accessed via *array notation*.
+
+This is because dot notation indicates to Ruby that its a function:
+
+```javascript
+//in javascript
+var foo = {
+  bar: 3
+};
+
+foo.bar //completely valid. => 3
+```
+
+```ruby
+foo = {
+  'bar' => 3
+};
+
+foo['bar'] # Valid. => 3
+foo.bar    # Invalid. Looks for a function named bar that belongs to foo and throws an error.
+```
+
 
 ##Strings
 

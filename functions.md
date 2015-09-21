@@ -129,7 +129,7 @@ Nope. Lambdas and procs have 2 major differences:
 foo = lambda { |x, y| x + y }
 
 def bar
-	foo(5) #Insufficient args so Ruby throws an 'ArgumentError' 
+	foo.call(5) #Insufficient args so Ruby throws an 'ArgumentError' 
 	return 'Hello'
 end
 
@@ -140,12 +140,28 @@ bar
 foo = lambda { |x,y| return x + y } #The return only exits out of lambda, not calling method
 
 def bar
-	foo(5, 6)
+	foo.call(5, 6)
 	return 'Hello'
 end
 
 bar # Returns 'Hello' not 11
 ```
+
+####Why can't you call Procs and Lambda functions like regular functions with `()`
+
+If a lambda is defined like so:
+
+```ruby
+foo = lambda { |x,y| x + y }
+```
+
+Then invoking it like below will throw an error:
+
+```ruby
+foo(5) # => NoMethodError: undefined method `foo` for Object
+```
+
+This is better explained at [StackOverflow here](http://stackoverflow.com/questions/1686844/why-isnt-the-ruby-1-9-lambda-call-possible-without-the-dot-in-front-of-the-pare)
 
 ###Passing Procs/Lambdas as parameters to functions
 

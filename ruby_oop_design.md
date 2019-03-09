@@ -1,10 +1,8 @@
-#Ruby OOP Design
+# Ruby OOP Design
 
-#Everything is an object
+*Everything is an object*. One of the fundamental tenets of Ruby is that *EVERYTHING* is an object. You will see this further in the classes section.
 
-One of the fundamental tenets of Ruby is that *EVERYTHING* is an object. You will see this further in the classes section.
-
-#Classes
+## Classes
 
 Unlike JS which needs to use closures to create class-like structures (at least until EcmaScript 6 is finalized and comes out), Ruby has an actual structure designated by the ```class``` attribute. 
 
@@ -13,10 +11,10 @@ Here are the basic syntaxes for a class:
 1. ```class``` defines the class (pretty obvious)
 2. ```initialize``` function is the constructor for the class. The name matters. The constructor MUST have this name if you are overriding the default empty constructor!
 3. An instance variable must have the ```@``` prefixed to it (Example: _@name_)
-4. To instantiate an instance of a class, unlike JS which uses ```new <Type-name>(...)```, Ruby uses a syntax with this format: ```<Class>.new(...)```
+4. To instantiate an instance of a class, unlike JS which uses ```new <Class>(...)```, Ruby uses a syntax with this format: ```<Class>.new(...)```
 5. ```self``` is a term to refer to the actual class itself NOT the instance of the class.
 
-Finally, Class names are written in `CamelCase` not ```snake_case```
+Finally, Class names are written in `CamelCase` not ```snake_case```.
 
 
 Here is a simplistic example:
@@ -37,7 +35,7 @@ batman = Superhero.new('Batman', 'Bruce Wayne')
 batman.description # => "I'm Batman but my real name is Bruce Wayne"
 ```
 
-###Inheritence
+### Inheritence
 
 Unlike JS which uses a nonstandard prototypal inheritence, Ruby has a more classic inheritence akin to Java. It uses the ```<``` to designate what the class inherits from.
 
@@ -69,11 +67,11 @@ As you can see, the Agent class has two functions and by using the ```child_clas
 
 **Ruby only allows single parent inheritence. To get around this, see [here](#mixins-with-include-and-extend)
 
-###Overriding inherited functions
+### Overriding inherited functions
 
 This is just like all other languages, just name the function the same as in the parent class to override it.
 
-###Calling super (superclass version) function
+### Calling super (superclass version) function
 
 If you have overriden a parent class function but now still need access to the parent class function, you can use the ```super``` keyword like you would in Java.
 
@@ -87,12 +85,12 @@ end
 class Pitbull < Dog
 	def speak
 		super                    #If there were any arguments, it would be super(...)
-		puts 'But I'm also a pitbull...'
+		puts "But I'm also a pitbull..."
 	end
 end
 ```
 
-###Getters and Setter functions
+### Getters and Setter functions
 Getter and setter functions can be created via standard function definitions but this is suboptimal. We don't want to create getters and setters manually for a lot of the instance variables.
 
 Ruby allows a nice shortcut for this using the ```attr_reader```, ```attr_writer``` and ```attr_accessor``` classes! They take in the instance variable name structured as a symbol (see example below).
@@ -132,7 +130,7 @@ a.name # => 'Billy'
 
 If you are confused about the ```name=(value)``` then please see [the naming convention entry in the Coding Conventions page](coding_conventions.md#setter-naming-convention)
 
-###Class Definitions (Gotchas when coming from other languages)
+### Class Definitions (Gotchas when coming from other languages)
 
 In Ruby, code that defines a class is no different from any other code. This means you can place the class definition code almost anywhere. For example:
 
@@ -148,9 +146,9 @@ In Ruby, code that defines a class is no different from any other code. This mea
 end
 ```
 
-#####Classes can be defined multiple times
+##### Classes can be defined multiple times
 
-In Ruby, the first time the interpreter encounters a class definition, it creates the class with the specific members that have been specified. If it encounters a definition for the same class again, it actually *extends the existing definition*
+In Ruby, the first time the interpreter encounters a class definition, it creates the class with the specific members that have been specified. If it encounters a definition for the same class again, it actually *extends the existing definition*.
 
 ```ruby
 # Defines class Foo
@@ -183,11 +181,11 @@ This metaprogramming feature is a pretty powerful way to extend classes at runti
 
 The JS equivalent of this would be overriding the `prototype` of an existing type. 
 
-######Careful in overriding existing functions!
+###### Careful in overriding existing functions!
 
-This kind of extending classes on existing types inherent to the language is known by JS devs as `monkeypatching` and is dangerous to do on existing types. For example:
+This kind of extending classes on existing types inherent to the language is termed by JS devs as "monkeypatching" and is dangerous to do on existing types. For example:
 
-```
+```ruby
 class Foo
   def bar
     3
@@ -207,15 +205,15 @@ Foo.new.bar # => 5
 
 This example might seem silly but it is very important to note. In JavaScript, developers are warned not to overwrite existing types like `String.prototype` or `Array.prototype` that might unintentionally affect other functionality or libraries used in the app. Ruby code has the same implications and so the same care must be taken.
 
-###Scope
+### Scope
 
 JavaScript is a wonderful language in the way we can manipulate access to variables via closures. In Ruby, the scoping rules completely different.
 
-Unlike JS which is all based on a function scope, this has 4 different scopes:
+Unlike JS which is all based on a function scope, Ruby has 4 different scopes:
 
-1. **global variables (prefixed with ```$```)** - are available everywhere. _If you don't prefix the variable with ```$``` but it is outside of any function or class, then it is still a global variable. 
-2. **local variables** - are available only to the methods they are defined in
-3. **class variables (prefixed with ```@@```)** - are available to all members of the class and between instances of the class. Adding a class variable is essentially like attaching a variable to a JavaScript object's prototype. As soon as its defined, it is shared and viewed by all instances of the object.
+1. **global variables (prefixed with ```$```)** - are available everywhere. _If you don't prefix the variable with ```$``` but it is outside of any function or class, then it is still a global variable_.
+2. **local variables** - are available only to the methods they are defined in.
+3. **class variables (prefixed with ```@@```)** - are available to all members of the class and between instances of the class. Adding a class variable is essentially like attaching a variable to a JavaScript object's prototype. As soon as it's defined, it is shared and viewed by all instances of the object.
 4. **instance variables (prefixed with ```@```)** - are available to a particular instance of the class
 
 **NOTE:** To access a global variable defined with ```$```, it **MUST** be accessed with ```$``` as the prefix.
@@ -244,7 +242,7 @@ b = Foo.new
 puts Foo.get_instance_count # => 2
 ```
 
-###Everything is an object (even a class)
+### Everything is an object (even a class)
 
 If you define a class Foo:
 
@@ -264,13 +262,13 @@ BasicObject <--- Object <-- Module <-- Class
 
 So technically... all classes are modules and `BasicObject` is the root of the Ruby class heirarchy.
 
-###Class Reflection and Metaprogramming
+### Class Reflection and Metaprogramming
 
 Unlike other languages like C where much of the metadata on an object or class is stripped away during runtime, Ruby keeps almost all of it. 
 
 Some useful information that can be available are:
 
-#####Class and Superclass via `.class` and `.superclass`
+##### Class and Superclass via `.class` and `.superclass`
 
 ```ruby
 class Foo
@@ -283,7 +281,7 @@ x.superclass # => Class
 
 Every object has a `class` property that is essentially a reference to the class that created it. In the aforementioned example, `x.class == Foo`
 
-#####Getting a list of methods via `.methods`, `.public_methods`, `.protected_methods`, `.private_methods`
+##### Getting a list of methods via `.methods`, `.public_methods`, `.protected_methods`, `.private_methods`
 
 ```ruby
 class Foo
@@ -292,14 +290,14 @@ class Foo
 end
 
 x = Foo.new
-x.methods(false) # false tells the function to only return non-inherited methods.
+x.methods(false) # `false` tells the function to only return non-inherited methods.
                  # => [:bar]
 
 #To get a subset by searching through the methods, calling grep() is useful
 x.methods.grep(/ba/) # => [:bar]
 ```
 
-#####Getting a list of instance variables via `.instance_variables`
+##### Getting a list of instance variables via `.instance_variables`
 
 ```ruby
 class Foo
@@ -313,10 +311,10 @@ Foo.instance_variables     # => [:@a]
 Foo.new.instance_variables # => [:@b]
 ```
 
-Why is `@a` not available for `Foo.new`? Its because` @a` is an instance variable of Foo (since class Foo is technically an object). When `Foo.new` is executed, the `initialize` function is called, creating a new instance variable `@b`.
+Why is `@a` not available for `Foo.new`? It's because` @a` is an instance variable of Foo (since class Foo is technically an object). When `Foo.new` is executed, the `initialize` function is called, creating a new instance variable `@b`.
 
 
-#Module
+## Module
 
 A module in Ruby is a data structure for holding methods and constants.
 
@@ -328,11 +326,11 @@ module Foo
 end
 ```
 
-##Namespace resolution using ``::``
+### Namespace resolution using ``::``
 
 If there are multiple functions with the same name in different modules, to make sure Ruby knows to pick the right function, we use ```<module-name>::<function/constant-name>``` format to be specific. 
 
-For example. if you define a module with the constant PI
+For example, if you define a module with the constant PI
 
 ```ruby
 module Foo
@@ -354,7 +352,7 @@ Date.Today #same as Date::Today
 ```
 
 
-##Importing a module with ```require``` and ```include```
+### Importing a module with ```require``` and ```include```
 
 There are two ways to import a module:
 
@@ -380,9 +378,9 @@ class Foo
 end
 ```
 
-##Mixins<a name="mixins-with-include-and-extend"></a>
+### Mixins<a name="mixins-with-include-and-extend"></a>
 
-###Mixin with ```include```<a name="mixins-with-include"></a>
+#### Mixin with ```include```<a name="mixins-with-include"></a>
 When you use ```include```, the module's methods act as if they are now part of the **instance of the** class/module and this has far reaching effects.
 
 See below:
@@ -415,10 +413,10 @@ gavrillo.shoot("Franz Ferdinand") # => 'Shot Franz Ferdinand'
 
 This is how single inheritence can be side stepped. Classes can be mixed in and inherited and the child classes would then inherit the constants and methods of the module even if they aren't explicitely inclduing it themselves.
 
-###Mixin with ```extend```<a name="mixins-with-extend"></a>
-The mixin with ```extend``` works exactly the same way as the [mixin with include](#mixins-with-include) but it works on a **Class level**
+#### Mixin with ```extend```<a name="mixins-with-extend"></a>
+The mixin with ```extend``` works exactly the same way as the [mixin with include](#mixins-with-include) but it works on a **Class level**.
 
-See example below (thanks code academy for the example):
+See example below (thanks Codeacademy for the example):
 
 ```ruby
 module ThePresent
@@ -436,13 +434,13 @@ TheHereAnd.now
 
 Note how the class itself can call ```now``` and not just instances of the class.
 
-#Constants
+## Constants
 
 In Ruby, any reference that begins with an uppercase letter whether its a variable, a class name or module name is a constant.
 
 Unlike other languages, in Ruby, constants can have their values set after they have already been initialized. 
 
-A ruby constant is different from a regular variable in only 1 way: *Scope*.
+A Ruby constant is different from a regular variable in only 1 way: *Scope*.
 
 See the following:
 
@@ -466,12 +464,12 @@ Foo::SomeConstant      # => hello
 Foo::Bar::SomeConstant # => bye
 ```
 
-###Accessing constants and nesting during runtime
+### Accessing constants and nesting during runtime
 
 If constants of a specific module need to be accessed, then the `constants` keyword is used:
 
 ```ruby
-Module Foo
+module Foo
   SomeConstant = 'hello'
 end
 

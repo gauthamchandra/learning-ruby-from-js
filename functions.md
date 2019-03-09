@@ -1,13 +1,10 @@
-#JavaScript --> Ruby Cheatsheet
+# Blocks, Procs, Lambdas and Functions
 
-This is a simple cheatsheet/short guide of sorts for a JavaScript developer who wants to learn Ruby from scratch.
-
-
-##Blocks, ```proc``` and ```lambda```<a name="blocks-procs-and-lambdas"></a>
+## Blocks, ```proc``` and ```lambda```<a name="blocks-procs-and-lambdas"></a>
 
 In Ruby, there is a reusable piece of code called a block. It is designated by curly braces: ```{}```
 
-Many functions such as sort, each and times allow you to specify a code block to execute.
+Many functions such as `sort`, `each` and `times` allow you to specify a code block to execute.
 
 For example, in Ruby, if you wanted to print "Hello" 5 times, you could do:
 
@@ -16,23 +13,23 @@ For example, in Ruby, if you wanted to print "Hello" 5 times, you could do:
 5.times { puts "Hello" }
 ```
 
-###Passing in code blocks as parameters to functions
+### Passing in code blocks as parameters to functions
 If you want to pass in a code block as a valid parameter to a function, you need to specify to Ruby that it is a function/code block by using the ```&``` prefix. See below:
 
 **IMPORTANT:** Like the [splat arguments](#splat-arguments), this needs to be defined as a parameter of the function **last**
 
 ```ruby
-#Note the '&' before the 'func' argument in the method definition
+# Note the '&' before the 'func' argument in the method definition
 def foo(&func)
 	func.call
 end
 foo { puts "Hello World" }
 ```
 
-###Isn't a block just an anonymous function?
+### Isn't a block just an anonymous function?
 Not exactly. Blocks look VERY similar at a first glance but an anonymous function is more like a Ruby [lamda function](#lamda-functions)
 
-###So...what is a ```proc```?
+### So...what is a ```proc```?
 Ruby is built on an "everything is an object" philosophy and that ironically has a few exceptions, one of which is that **a block is NOT an object**.
 
 So how do we reuse blocks? We give it a name but a name can only be given to an object. This is where ```proc``` comes in. It is a container object that holds blocks.
@@ -49,7 +46,7 @@ times_2 = Proc.new { |num| num * 2 }  #define the proc
 									   # => [2,4,6]
 ```
 
-###Calling Procs directly with ```call```
+### Calling Procs directly with ```call```
 
 To call procs directly, use the ```call``` method like so:
 
@@ -79,7 +76,7 @@ So:
 ```
 
 
-###Converting Symbols to Procs for shorthand blocks
+### Converting Symbols to Procs for shorthand blocks
 In Ruby, there is a bit of shorthand notations which will, for most JS developers not familair with Ruby, look like black magic.
 
 Converting symbols to Procs is one such example. See this example below:
@@ -97,11 +94,11 @@ Everything is fairly normal until we hit the ```&:to_i```
 
 What is happening is:
 
-* ```to_i``` is a function and when combined with ```:``` gets turned into a symbol referencing the ```to_i``` function (which just converts the object to an integer)
-* Recall that the ```&``` prefix for a proc usually unwraps/unpacks the block for a function to consume. In this case, since its a symbol and not a block, Ruby calls the ```to_proc``` function to convert it to a block. 
-* This newly formed block is fed into the map function
+* ```to_i``` is a function and when combined with ```:``` gets turned into a symbol referencing the ```to_i``` function (which just converts the object to an integer).
+* Recall that the ```&``` prefix for a proc usually unwraps/unpacks the block for a function to consume. In this case, since it's a symbol and not a block, Ruby calls the ```to_proc``` function to convert it to a block. 
+* This newly formed block is fed into the map function.
 
-So....:
+So...:
 
 ```ruby
 ["1", "2", "3"].map(&:to_i) # => [1,2,3]
@@ -110,7 +107,7 @@ So....:
 
 **NOTE: This notation and referencing the method via ```&``` works with ```lambda``` (see next section) too.**
 
-###What are lamdas?
+### What are lamdas?
 A lambda is a ```proc``` but with a few small additions. It is declared almost the same way as a proc. 
 
 ```ruby
@@ -118,7 +115,7 @@ foo = Proc.new { puts "Hello World" }
 bar = lamda { puts "Goodbye Cruel World" } 
 ```
 
-####Then aren't lambdas and procs the same?
+#### Then aren't lambdas and procs the same?
 
 Nope. Lambdas and procs have 2 major differences:
 
@@ -147,7 +144,7 @@ end
 bar # Returns 'Hello' not 11
 ```
 
-####Why can't you call Procs and Lambda functions like regular functions with `()`
+#### Why can't you call Procs and Lambda functions like regular functions with `()`
 
 If a lambda is defined like so:
 
@@ -163,7 +160,7 @@ foo(5) # => NoMethodError: undefined method `foo` for Object
 
 This is better explained at [StackOverflow here](http://stackoverflow.com/questions/1686844/why-isnt-the-ruby-1-9-lambda-call-possible-without-the-dot-in-front-of-the-pare)
 
-###Passing Procs/Lambdas as parameters to functions
+### Passing Procs/Lambdas as parameters to functions
 
 To pass procs/lambdas as parameters to functions for actions such as filtering, use the ```&``` to refer to the proc/lambda. This essentially unpackages/unwraps the code block from the proc/lambda
 
@@ -175,9 +172,9 @@ stuff.select!(&is_symbol)                       # => [:hello, :goodbye]
 ```
 
 
-##Functions and Parameters
+## Functions and Parameters
 
-###Defining functions
+### Defining functions
 
 To define a function, the ```def``` keyword is used and is wrapped with an ```end``` to finish off the code block.
 
@@ -199,7 +196,7 @@ def foo(name)
 end
 ```
 
-####Returning from a function
+#### Returning from a function
 
 If you want to return something, you can use the ```return``` keyword. **HOWEVER**, if the last line of a function is the return statement, then the ```return``` keyword isn't needed. Ruby will automatically return the last variable set or retrieved without the return keyword. See below:
 
@@ -209,7 +206,7 @@ def foo
 	name = 'hello'
 	return name #unnecessary return
 end
-#
+
 #good way to do it
 def foo
 	name = 'hello' #Ruby will auto return this variable value.
@@ -236,12 +233,12 @@ end
 ```
 
 
-####Functions with an arbitrary number of arguments using splat (```*```)<a name="splat-arguments"></a>
+#### Functions with an arbitrary number of arguments using splat (```*```)<a name="splat-arguments"></a>
 In Java, you would define an arbitrary number of arguments of the same type via the ```...``` keyword like so:
 
-```ruby
-#in Java
-public void function(int ... numbers) { ... }
+```java
+// In Java
+public void function(int ...numbers) { /* do something */ }
 ```
 
 In Ruby, the splat arguments keyword ```*``` is used. This tells ruby that *we don't know how many arguments there are. **We just know there is at least one***
@@ -257,7 +254,7 @@ todd_five("Innuendo Five!", "J.D", "Turk")
 ```
 
 
-###Executing functions with no parameters
+### Executing functions with no parameters
 
 In JavaScript, it is mandatory to execute function with no arguments with parentheses but in ruby, parentheses aren't required and so most devs don't use them:
 
@@ -265,7 +262,7 @@ In JavaScript, it is mandatory to execute function with no arguments with parent
 SomeClass.foo  #This is equivalent to SomeClass.foo() in JS
 ```
 
-###Executing functions with one or more known parameters
+### Executing functions with one or more known parameters
 Unlike JS, in Ruby, parameters don't need to be enclosed by parentheses. The Ruby intepreter just looks for the parameters to be seperated by commas.
 
 ```ruby
@@ -274,25 +271,25 @@ puts('Hello', 'World')         # Also correct in Ruby but less used as its unnec
 ```
 
 
-####When to use parentheses
+#### When to use parentheses
 See the [Coding Conventions](coding_conventions.md#parentheses) page for more details.
 
 **tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitely use parentheses for everything else.
 
-###Functions as arguments
+### Functions as arguments
 
 In Ruby, functions can be passed blocks via {} which act similar to anonymous functions in JavaScript (see below)
 
 ```ruby
 books = {}
 books['stuff'] = 'hello' #setting a key and value is the same as in JS
-books.values.each { puts 'Hello' } //equivalent to books.values.each(function(){ console.log('Hello') }); in JS
+books.values.each { puts 'Hello' } #equivalent to Object.values(books).forEach(function(){ console.log('Hello') }); in JS
 ```
 
-###Functions doing changes inplace
+### Functions doing changes inplace
 Some JS functions do their changes to an object in place and some don't. Ruby, however, makes this matter very clear.
 
-Executing the function and ending with ! makes the change in-place. For example:
+Executing the function and ending with `!` makes the change in-place. For example:
 
 ```ruby
 name = "Gautham"
@@ -319,9 +316,9 @@ str = str.to_i #The workaround
 ```
 
 
-###Function parameters to anonymous functions
+### Function parameters to anonymous functions
 
-In Ruby, parameters to anonymous functions are enclosed via | or "pipe" characters like so:
+In Ruby, parameters to anonymous functions are enclosed via `|` or "pipe" characters like so:
 
 ```ruby
 books.values.each { |book| puts 'Gotta read ' + book } 
@@ -329,18 +326,18 @@ books.values.each { |book| puts 'Gotta read ' + book }
 
 which is equivalent to in JavaScript:
 
-```ruby
-books.values.each(function(book) {
+```javascript
+Object.values(books).forEach(function(book) {
 	console.log('Gotta read ' + book);
 });
 ```
 
-###```yield``` and executing code blocks inside functions
+### ```yield``` and executing code blocks inside functions
 In Ruby, you can yield control to run a block of code inside another function. This has a variety of uses.
 
 As a refresher, a block is just a reusable piece of code enclosed by braces ```{}```
 
-Using the ```yield``` you can invoke code blocks and pass it arguments as if they were functions. **Unless the blocks are specified as arguments, they are outside the parentheses. See below:**
+Using the ```yield``` keyword you can invoke code blocks and pass it arguments as if they were functions. **Unless the blocks are specified as arguments, they are outside the parentheses. See below:**
 
 ```ruby
 def foo(greeting)
@@ -353,11 +350,9 @@ foo("Top of the mornin to ya!") { |greeting| puts "#{greeting} John" }
 
 This prints out:
 
-```ruby
+```
 Inside the function foo
 Top of the mornin to ya John
 Back inside the function foo
 ```
-
-
 

@@ -1,10 +1,10 @@
-#Looping and control statements
+# Looping and control statements
 
-###Conditional assignment
+### Conditional assignment
 
-In JS, we sometimes want to only set the value of a variable if its not already defined. To do that in JS, we would do something like this:
+In JS, we sometimes want to only set the value of a variable if it's not already defined. To do that in JS, we would do something like this:
 
-```ruby
+```js
 some_var = some_var || {}
 ```
 
@@ -14,7 +14,7 @@ In Ruby, there is an even cooler and more terse way (Yey for terseness!). Here i
 some_var ||= {} #This is similar to a += or /= operator
 ```
 
-###```if``` keyword
+### ```if``` keyword
 
 This works just like the JavaScript version but with one small enhancement: it can be used inline with other statements (in a very cool readable way). See below:
 
@@ -22,7 +22,7 @@ This works just like the JavaScript version but with one small enhancement: it c
 puts "Hello Bruce" if name == 'Bruce'
 ```
 
-###```unless``` keyword
+### ```unless``` keyword
 
 This is similar to the if condition except it will execute the statement if the result is **false**
 
@@ -34,14 +34,14 @@ end
 # => "Hooray it's not 3!"
 ```
 
-You could also use the unless statement inline with other statements (in an almost backwards if statement). See below:
+You could also use the unless statement inline with other statements (in an almost backwards `if` statement). See below:
 
 ```ruby
-#Doing a type check to see if its an integer. The ? is just a naming convention to indicate it returns a boolean
+#Doing a type check to see if it's an integer. The `?` is just a naming convention to indicate it returns a boolean
 puts "That's not an integer bro!" unless some_int.is_a? Integer 
 ```
 
-###```switch```/```case``` statements
+### ```switch```/```case``` statements
 What is called Switch statements in JS and Java and other languages is called simply case statements in Ruby.
 
 This in Ruby:
@@ -69,25 +69,25 @@ end
 
 is equivalent to in JS:
 
-```ruby
-switch(language) {
+```js
+switch (language) {
 	case "JS":
-		puts "Dat frotnend scripting language";
+		console.log("Dat frotnend scripting language");
 		break;
 	case "Java":
-		puts "Aw man. The kingdom of nouns!";
+		console.log("Aw man. The kingdom of nouns!");
 		break;
 	default:
-		"Some cool language I don't know!"
+		console.log("Some cool language I don't know!");
 }
 ```
 
-So switch  keyword in JS translates to case in Ruby
-   case    keyword in JS translates to when in Ruby
-   default keyword in JS translates to else in Ruby
+So **switch**  keyword in JS translates to **case** in Ruby
+   **case**    keyword in JS translates to **when** in Ruby
+   **default** keyword in JS translates to **else** in Ruby
 
 
-###```for``` loops
+### ```for``` loops
 
 unlike JS, Ruby has a different ```for``` syntax where it defines the range:
 
@@ -107,7 +107,7 @@ for i in 0...10 # same as "for(var i = 0; i < 10; i++)" in JS. NOTE THE THREE DO
 end
 ```
 
-###Using the ```loop``` keyword (i.e do..while statement in JS)
+### Using the ```loop``` keyword (i.e do..while statement in JS)
 
 In Ruby, there is another way to loop through code called the ```loop``` statement. It takes in a code block and asks for a condition to exit out of the loop if the condition is met with the ```break``` keyword.
 
@@ -125,9 +125,9 @@ loop do
 end
 ```
 
-This is equivalent to this do..while in JS:
+This is equivalent to this `do..while` in JS:
 
-```ruby
+```js
 var i = 0;
 do {
 	i += 1;
@@ -135,7 +135,7 @@ do {
 } while (i > 9);
 ```
 
-###Using ```until``` keyword in a ```while``` loop
+### Using ```until``` keyword in a ```while``` loop
 
 Just like how the ```unless``` keyword is the opposite of the ```if``` statement, the ```while``` also has its opposite: ```until```. It is used in a similar way to ```unless```.
 
@@ -149,7 +149,7 @@ end
 ```
 
 
-####Using the ```next``` keyword in loop
+#### Using the ```next``` keyword in loop
 
 You can use the 'next' keyword to skip the loop if a condition is met. It is equivalent to the ```continue``` keyword used in combination with an if.
 
@@ -164,7 +164,7 @@ end
 
 Equivalent to JS's continue used with an if statement:
 
-```ruby
+```js
 for (var i = 0; i <= 5; i++) {
 	if (i % 2 == 0) {
 		continue;
@@ -173,9 +173,9 @@ for (var i = 0; i <= 5; i++) {
 }
 ```
 
-###Using the ```each``` iterator for looping
+### Using the ```each``` iterator for looping
 
-The each iterator is similar to the Array's each() or Underscore/Lodash's _.each function. 
+The each iterator is similar to the Array's `.forEach()` or Underscore/Lodash's `_.each` function. 
 
 You specify an object to loop through and then specify a code block to run for each item in the object. 
 
@@ -194,7 +194,7 @@ is equivalent to in JS:
 
 ```javascript
 var object = ['hello', 'goodbye'];
-object.each(function(str) {
+object.forEach(function(str) {
 	console.log(str);
 });
 ```
@@ -223,7 +223,7 @@ person.each { |key_or_val| puts |key_or_val| }
 The reason for this is due to the way the iterator is setup for the each.
 
 
-###Using ```times``` iterator for simple looping
+### Using ```times``` iterator for simple looping
 
 If you want to make a block of code execute a fixed number of times, the best way to do it would be through a "times" loop
 

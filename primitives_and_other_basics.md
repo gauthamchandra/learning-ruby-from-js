@@ -1,8 +1,8 @@
-#Basic Primitive Types and Reading/Writing to Screen
+# Basic Primitive Types and Reading/Writing to Screen
 
 **Disclaimer**: This doesn't go through every single primitive type and explain what it is. It just explains the differences between how it is implemented and used in JS vs Ruby.
 
-##Comments
+## Comments
 
 Single line comments in Ruby are defined via:
 
@@ -20,7 +20,7 @@ comment
 =end
 ```
 
-##Semicolons
+## Semicolons
 
 Semicolons are not necessary and not recommended to be used unless you have multiple statements of code onto one line.
 
@@ -35,9 +35,9 @@ puts 'goodbye cruel world';
 puts 'hello world'; puts 'goodbye cruel world';
 ```
 
-##Reading and Writing to the Screen/Console
+## Reading and Writing to the Screen/Console
 
-###Print vs puts
+### Print vs puts
 In JavaScript, to print something to the console, you can use the ```Console``` object via ```console.log``` but in Ruby, it is differentiated to two different functions: ```puts``` and ```print```
 
 The differences are **exactly the same as** Java's ```System.out.println``` and ```System.out.print``` respectively in that:
@@ -62,7 +62,7 @@ print 'Hello'
 puts 'Hello' 
 ```
 
-###Referencing Variables in Puts/Print
+### Referencing Variables in Puts/Print
 
 To reference variables already defined, use the ```#{variable_name}```. For example:
 
@@ -71,8 +71,8 @@ name = 'Gautham'
 puts 'Hello #{name}'
 ```
 
-###Getting User Input from console
-In Ruby, to read input from the user, its with the ```gets``` keyword (puts for output, gets for input).
+### Getting User Input from console
+In Ruby, reading input from the user is done with the ```gets``` keyword (puts for output, gets for input).
 
 There is one caveat to the ```gets``` keyword and that it returns the User's input WITH a newline character.
 
@@ -81,7 +81,7 @@ puts "Hello. What is your name?"
 name = gets       # If you entered 'Jake', then name='Jake\n'
 ```
 
-####Removing the newline character from ```gets```
+#### Removing the newline character from ```gets```
 To remove the newline character added from ```gets```, use the ```chomp``` function.
 
 ```ruby
@@ -89,11 +89,11 @@ name = gets.chomp  # With chomp, it strips the '\n' and so name='Jake'
 ```
 
 
-##Hashes (i.e JS-y objects)
+## Hashes (i.e JS-y objects)
 
 Objects in JavaScript are called hashes in Ruby. 
 
-###Traditional/JS-y way to define it:
+### Traditional/JS-y way to define it:
 
 In JS and Ruby, an empty hash can be defined like so:
 
@@ -114,7 +114,7 @@ a = { status: 'zombie', name:'Katie', id: 5 }
 a[:status] #Same as a['status']
 ``` 
 
-####Alternate notation for key value seperators using the hashrocket: ```=>```
+#### Alternate notation for key value seperators using the hashrocket: ```=>```
 
 Instead of using ```:``` to seperate key value pairs, In Ruby, one can also use ```=>``` instead.
 
@@ -122,20 +122,21 @@ Instead of using ```:``` to seperate key value pairs, In Ruby, one can also use 
 
 ```ruby
 stuff = {
-	'name' => 'Bilbo Baggins',
-	'survives' => true
+  'name' => 'Bilbo Baggins',
+  'survives' => true
 }
 ```
+
 Equivalent JS:
 
 ```javascript
 stuff = {
-	name: 'Bilbo Baggins',
-	survives: true
+  name: 'Bilbo Baggins',
+  survives: true
 };
 ```
 
-####Ommitting the ```{}```
+#### Ommitting the ```{}```
 
 When passing a hash to a function, if the hash is the last parameter, the ```{}``` can be ommitted. 
 
@@ -146,7 +147,7 @@ foo({ 'status' => 'zombie' }) # This...
 foo('status' => 'zombie')     # is the same as this
 ```
 
-###via Hash.new:
+### Via Hash.new:
 
 Hash.new takes in an optional parameter for the default value. If set, anytime a non-existent key is accessed or an operation is done on a key that has no value, this default value is returned instead.
 
@@ -159,7 +160,7 @@ puts stuff[a] # prints out "3"
 puts stuff[b] # prints out "0"
 ```
 
-####Dot notation and Ruby
+#### Dot notation and Ruby
 
 Unlike JavaScript where objects (i.e Ruby hashes) can be accessed by dot notation, Ruby forces hash properties to be accessed via *array notation*.
 
@@ -184,11 +185,11 @@ foo.bar    # Invalid. Looks for a function named bar that belongs to foo and thr
 ```
 
 
-##Strings
+## Strings
 
 Strings works pretty much the same way in JS as it does in Ruby with a few nice enhancements. 
 
-###String Interpolation
+### String Interpolation
 Aside from standard string concatenation, Ruby allows something called String interpolation. This allows you to refer to variables from inside a string using the ```#{<variable_name>}``` syntax:
 
 ```ruby
@@ -202,7 +203,16 @@ You can even execute functions from inside the ```#{}```
 puts "#{name.upcase}" # => BATMAN
 ```
 
-###String Interpolation and Single Quotes
+ES2015 has introduced Template literals (aka template strings) which are the equivalent to Ruby's String interpolation: 
+
+```javascript
+name = 'Batman'
+console.log(`${name}`) // => Batman
+
+console.log(`${name.toUpperCase()}`) // => BATMAN
+```
+
+### String Interpolation and Single Quotes
 String interpolation is not possible with single quotes. If single quotes are specified, Ruby will take the input **literally**. 
 
 **You MUST use double quotes for string interpolation to be done**
@@ -213,7 +223,7 @@ puts 'I am #{name}' # => 'I am #{name}'
 puts "I am #{name}" # => 'I am Batman'
 ```
 
-##Arrays
+## Arrays
 
 Arrays work the same as in JS with one or two small tweaks.
 
@@ -225,18 +235,18 @@ In Ruby, there is an alias for the push function using the ```<<``` operator. It
 ```
 
 
-##Comparing/Converting/Checking different objects
+## Comparing/Converting/Checking different objects
 
-###Comparing two different objects
+### Comparing two different objects
 
-###```==``` operator
-The JS ```===``` is the same as ```==``` in that it checks **both** the type and the **value** **BUT does not care if they are in two different locations in memory (unlike Java's ==)**.
+### ```==``` operator
+The JS ```===``` is the same as Ruby's ```==``` in that it checks **both** the type and the **value** **BUT does not care if they are in two different locations in memory (unlike Java's ==)**.
 
-###```===``` operator
+### ```===``` operator
 
 This is the same as ```==``` except it can be overriden by objects for their own custom equals logic. It would be the equivalent to overriding the equals function in Java.
 
-###Combined Comparison Operator
+### Combined Comparison Operator
 
 Aside from the usual ```==```, ```>=```, ```<=```, ```!=```, Ruby has another comparison operator called the **Combined Comparison Operator** designated by ```<=>```. 
 
@@ -251,17 +261,17 @@ In this regard, you can think of the combined comparison operator as a glorified
 ```ruby
 'Hello' <=> 'Hello' # => 0
 3 <=> 2             # => 1
-3 <=> 9				 # => -1 
+3 <=> 9             # => -1 
 ```
 
-###```equal?``` function
+### ```equal?``` function
 
 To check to make sure that the two objects point to the same point in memory, you need to use the ```equal?```
 
 **See this [StackOverflow answer on == vs === vs equal? vs eql?](http://stackoverflow.com/a/7157051)**
 
 
-###Checking Types 
+### Checking Types 
 To check the type of an object, use ```is_a?``` function
 
 ```ruby
@@ -270,32 +280,33 @@ greeting.is_a? Integer # Checking if greeting is an Integer. => false
 greeting.is_a? String  # Checking if greeting is a String. => true
 ```
 
-###Converting
+### Converting
 
-####To a string
+#### To a string
 Converting to a String involves using the ```to_s``` function
 
 ```ruby
 3.to_s # => "3"
 ```
 
-####To an integer
+#### To an integer
 Involves using the ```to_i``` function
 
 ```ruby
 'Hello'.to_i # => 0
 ```
 
-####To a proc
+#### To a proc
 Involves using the ```to_proc``` function
 
 Procs are covered [here](functions.md#blocks-procs-and-lambdas).
 
 
-##Symbols<a name="symbols"></a>
+## Symbols<a name="symbols"></a>
 **Symbols are a special object that contains names and strings inside the Ruby Interpreter.**
 
-There is no standard JS equivalent to Symbols. The closest Java equivalent to this would probably interned Strings. This is because symbols are defined as static things which are used once and are immutable. Referencing them again will refer to the same copy in memory. 
+~~There is no standard JS equivalent to Symbols~~. Symbols were introduced to JavaScript in ES2015.
+The closest Java equivalent to this would probably be interned Strings. This is because symbols are defined as static things which are used once and are immutable. Referencing them again will refer to the same copy in memory. 
 
 Symbols can only be values set to other objects.
 
@@ -313,15 +324,15 @@ books['some-other-book'] = :hello # Refers to the SAME object as books['some-boo
 **WARNING: *For Ruby versions < 2.2*, SYMBOLS TAKE UP MEMORY AND CANNOT BE GARBAGE COLLECTED. YOU CAN CAUSE DoS PROBLEMS IF YOU AREN'T CAREFUL**
 
 
-##Decrementing and Incrementing
+## Incrementing and Decrementing
 
 Unlike JS, Ruby has no preincrement ```++i```, postincrement ```i++```, predecrement ```--i``` and postdecrement ```i--``` for the same reasons as python:
 
 * Makes implementation simpler
-* ++ and -- are NOT reserved operator in Ruby.
+* ++ and -- are NOT reserved operators in Ruby.
 * C's increment/decrement operators are in fact hidden assignment. They affect variables, not objects. You cannot accomplish assignment via method. 
 
-So instead, Ruby uses +=/-= operator
+So instead, Ruby uses += and -= operators
 
 ```ruby
 i++     # throws an error in Ruby

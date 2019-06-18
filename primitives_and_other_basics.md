@@ -62,15 +62,6 @@ print 'Hello'
 puts 'Hello' 
 ```
 
-### Referencing Variables in Puts/Print
-
-To reference variables already defined, use the ```#{variable_name}```. For example:
-
-```ruby
-name = 'Gautham'
-puts 'Hello #{name}'
-```
-
 ### Getting User Input from console
 In Ruby, reading input from the user is done with the ```gets``` keyword (puts for output, gets for input).
 
@@ -190,7 +181,7 @@ foo.bar    # Invalid. Looks for a function named bar that belongs to foo and thr
 Strings works pretty much the same way in JS as it does in Ruby with a few nice enhancements. 
 
 ### String Interpolation
-Aside from standard string concatenation, Ruby allows something called String interpolation. This allows you to refer to variables from inside a string using the ```#{<variable_name>}``` syntax:
+Aside from standard string concatenation, Ruby allows String interpolation. This allows you to refer to variables from inside a string using the ```#{<variable_name>}``` syntax **as long as you use double quotes**:
 
 ```ruby
 name = 'Batman'

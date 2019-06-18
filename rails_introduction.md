@@ -1,4 +1,4 @@
-#Rails introduction
+# Rails introduction
 
 Rails is a great MVC framework written on top of Ruby.
 
@@ -6,13 +6,13 @@ This is not an exhaustive guide. Not even close. For full docs, go [here](http:/
 
 Right now, this guide is wholly unfinished.
 
-##Basic Terminal Commands
+## Basic Terminal Commands
 
 All commands can be run with ```-h``` or ```---help``` to list more information.
 
 For a full guide, see [Rails Official Commandline Guide](http://guides.rubyonrails.org/command_line.html)
 
-###Rails commands
+### Rails commands
 
 To create a new app, use the command
 
@@ -31,7 +31,7 @@ To interact with the rails app from command line, you can use the rails console 
 ```rails console```
 
 
-####Generating Models
+#### Generating Models
 
 To generate a new model, the command is:
 
@@ -70,7 +70,7 @@ Now to create the table, run the command:
 ```rake db:migrate```
 
 
-###Rake commands
+### Rake commands
 
 What is Rake? Rake is simply a build tool. It can be thought of as a Makefile with Ruby code. Rake is a superset of Ruby. It allows developers to define build tasks via the `task` keyword.
 
@@ -106,7 +106,7 @@ welcome_index GET    /welcome/index(.:format)     welcome#index
 ```
 
 
-##Basic Structure of a Rails app
+## Basic Structure of a Rails app
 
 <table>
 	<thead>
@@ -172,9 +172,9 @@ welcome_index GET    /welcome/index(.:format)     welcome#index
 </table>
 
 
-##Routing
+## Routing
 
-###Configuring Routes
+### Configuring Routes
 
 A list of all routes in an application can be found in ```config/routes.rb```
 
@@ -191,7 +191,7 @@ To specify the root (i.e default controller and action for route: ```/```), then
 ```root '<controller>#<action>```
 
 
-###Configuring resources
+### Configuring resources
 
 For data to be queried back and forth by your application to serve the user, there need to be REST endpoints set up for the resources.
 
@@ -237,7 +237,7 @@ welcome_index GET    /welcome/index(.:format)     welcome#index
 
 
 
-##Naming Convention
+## Naming Convention
 
 Given the database table name ```tweets``` with the data below:
 
@@ -269,7 +269,7 @@ In other words, the models in rails use a singular name while the actual corresp
 
 
 
-##Glossary
+## Glossary
 
 * ```DSL``` - Domain Specific Language
 * ```resource```- an object/collection of objects that can be queried by the user via REST.

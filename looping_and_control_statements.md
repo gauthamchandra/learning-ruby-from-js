@@ -92,6 +92,7 @@ So **switch**  keyword in JS translates to **case** in Ruby
 unlike JS, Ruby has a different ```for``` syntax where it defines the range:
 
 There are two forms for this:
+
 * with two dots used in between the range (to be max bound inclusive)
 * with three dots used in between the range (to be max bound exclusive)
 
@@ -105,6 +106,28 @@ end
 for i in 0...10 # same as "for(var i = 0; i < 10; i++)" in JS. NOTE THE THREE DOTS FOR 10 exclusive
 	#some code
 end
+```
+
+**CAVEAT**: You cannot increment the variable in the for loop delcaration manually.
+
+In other words,
+
+```javascript
+// javascript
+for (let i = 0; i < 100; i++) {
+  console.log(i)
+  i += 3
+}
+// => prints 0, 4, 8, 12...
+```
+
+```ruby
+# ruby
+for i in (0..100)
+  puts i
+  i += 3
+end
+# => prints 0, 1, 2, 3, ... to 100
 ```
 
 ### Using the ```loop``` keyword (i.e do..while statement in JS)

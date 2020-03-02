@@ -473,7 +473,7 @@ module Foo
   SomeConstant = 'hello'
 end
 
-Bar.constants # => [:SomeConstant]
+Foo.constants # => [:SomeConstant]
 ```
 
 To find the path of a specific module, the `Module.nesting` can be used:

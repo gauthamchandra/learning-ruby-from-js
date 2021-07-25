@@ -345,7 +345,7 @@ def foo(greeting)
 	yield(greeting)
 	puts 'Back inside the function foo'
 end
-foo("Top of the mornin to ya!") { |greeting| puts "#{greeting} John" }
+foo("Top of the mornin to ya") { |arg| puts "#{arg} John" }
 ```
 
 This prints out:

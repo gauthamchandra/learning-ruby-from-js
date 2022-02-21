@@ -27,7 +27,7 @@ foo { puts "Hello World" }
 ```
 
 ### Isn't a block just an anonymous function?
-Not exactly. Blocks look VERY similar at a first glance but an anonymous function is more like a Ruby [lamda function](#lamda-functions)
+Not exactly. Blocks look VERY similar at a first glance but an anonymous function is more like a Ruby [lambda function](#lambda-functions)
 
 ### So...what is a ```proc```?
 Ruby is built on an "everything is an object" philosophy and that ironically has a few exceptions, one of which is that **a block is NOT an object**.
@@ -107,12 +107,12 @@ So...:
 
 **NOTE: This notation and referencing the method via ```&``` works with ```lambda``` (see next section) too.**
 
-### What are lamdas?
+### What are lambdas?
 A lambda is a ```proc``` but with a few small additions. It is declared almost the same way as a proc. 
 
 ```ruby
 foo = Proc.new { puts "Hello World" }
-bar = lamda { puts "Goodbye Cruel World" } 
+bar = lambda { puts "Goodbye Cruel World" } 
 ```
 
 #### Then aren't lambdas and procs the same?

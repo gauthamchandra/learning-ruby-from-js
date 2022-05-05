@@ -274,7 +274,7 @@ puts('Hello', 'World')         # Also correct in Ruby but less used as its unnec
 #### When to use parentheses
 See the [Coding Conventions](coding_conventions.md#parentheses) page for more details.
 
-**tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitely use parentheses for everything else.
+**tl;dr**: Omit parentheses for anything with keyword status in Ruby and explicitly use parentheses for everything else.
 
 ### Functions as arguments
 

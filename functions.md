@@ -241,7 +241,7 @@ In Java, you would define an arbitrary number of arguments of the same type via 
 public void function(int ...numbers) { /* do something */ }
 ```
 
-In Ruby, the splat arguments keyword ```*``` is used. This tells ruby that *we don't know how many arguments there are. **We just know there is at least one***
+In Ruby, the splat arguments keyword ```*``` is used. This tells ruby that *we don't know how many arguments there are.*
 
 For example:
 
